@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/viewPager"
+    android:background="@drawable/share_bg">
+
+    <include layout="@layout/comm_title" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dp"
+        android:src="@drawable/logo_login" />
+
+    <RelativeLayout
+        android:id="@+id/login_lay"
+        style="@style/blue_button_style"
+        android:layout_width="290dp"
+        android:layout_height="44dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="322dp"
+        android:background="@drawable/common_round_rectangle_white_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/iv_weixin"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/wx_login"
+            android:textColor="@color/login_wx"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_no_wx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:text="@string/not_install_wx_note"
+        android:textColor="@color/text_color_def"
+        android:textSize="12sp" />
+</RelativeLayout>

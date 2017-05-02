@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/viewPager">
+
+    <include layout="@layout/comm_title" />
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="49dp"
+        android:layout_marginTop="14dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:stretchColumns="1">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="当前手机号"
+                android:textColor="@color/item_value_color"
+                android:textSize="@dimen/common_text_size" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="right"
+                android:singleLine="true"
+                android:textColor="@color/item_key_color"
+                android:textSize="@dimen/common_text_size" />
+        </TableRow>
+
+        <TableRow
+            android:paddingTop="10dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="密码："
+                android:textColor="@color/item_value_color"
+                android:textSize="@dimen/common_text_size" />
+
+            <EditText
+                android:id="@+id/et_pwd"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="left"
+                android:hint="请输入密码"
+                android:password="true"
+                android:singleLine="true"
+                android:textColor="@color/item_key_color"
+                android:textSize="@dimen/common_text_size" />
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btn_sbmit"
+        style="@style/blue_button_style"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:text="更改手机号"
+        android:textSize="@dimen/common_text_size" />
+
+</LinearLayout>

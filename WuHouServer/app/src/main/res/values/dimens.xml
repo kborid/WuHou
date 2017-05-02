@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">10dp</dimen>
+    <dimen name="activity_vertical_margin">10dp</dimen>
+    <dimen name="common_text_size">14sp</dimen>
+    <dimen name="common_description_size">12sp</dimen>
+
+    <dimen name="title_center_text_size">17sp</dimen>
+    <dimen name="title_left_reight_text_size">14sp</dimen>
+    <dimen name="tab_text_size">14sp</dimen>
+
+    <dimen name="index_text_size">14sp</dimen>
+
+    <!-- 标题配置 -->
+    <dimen name="title_height">56dp</dimen>
+
+    <!-- listview item 高度 -->
+    <dimen name="listview_item_hight">80dp</dimen>
+    <dimen name="commu_tab_height">50dp</dimen>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/viewPager" >
+
+    <include layout="@layout/comm_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:background="#fff"
+                android:gravity="left"
+                android:hint="请输入对问题的具体描述"
+                android:padding="20dp"
+                android:textColor="#a9a9a9"
+                android:textColorHint="#a9a9a9"
+                android:textSize="14sp" />
+
+            <com.yunfei.wh.ui.custom.NoScrollGridView
+                android:id="@+id/gridView"
+                android:layout_width="242dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:horizontalSpacing="11dp"
+                android:numColumns="3"
+                android:listSelector="#0000"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="11dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

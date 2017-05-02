@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/viewPager">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_lay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.yunfei.wh.ui.custom.MyScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.yunfei.wh.ui.custom.CommonBannerLayout
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!--提示升级Layout-->
+                <LinearLayout
+                    android:id="@+id/install_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#fff4ea"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_install"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="@string/install"
+                        android:textColor="@color/home_install_text"
+                        android:textSize="11sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_ignore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_close" />
+                </LinearLayout>
+
+                <!--天气layout-->
+                <RelativeLayout
+                    android:id="@+id/weather_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_weather"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_sunny_day" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/iv_weather"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_temp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="—°C ~ —°C"
+                                android:textColor="@color/commu_server_title_color"
+                                android:textSize="@dimen/common_description_size" />
+
+                            <TextView
+                                android:id="@+id/tv_weather"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="—"
+                                android:textColor="@color/commu_server_title_color"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/wh_air_lay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:visibility="invisible"
+                        android:layout_centerInParent="true">
+
+                        <TextView
+                            android:id="@+id/tv_pm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/pm2_5_1bg"
+                            android:text="—优"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/common_description_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/limit_lay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tv_limit_tip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="今日限行"
+                            android:textColor="@color/commu_server_title_color"
+                            android:textSize="@dimen/common_description_size" />
+
+                        <TextView
+                            android:id="@+id/tv_limit1"
+                            android:layout_width="14dp"
+                            android:layout_height="16dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/tv_limit_tip"
+                            android:background="@drawable/common_round_red_bg"
+                            android:gravity="center"
+                            android:text="—"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/tv_limit2"
+                            android:layout_width="14dp"
+                            android:layout_height="16dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_toRightOf="@id/tv_limit1"
+                            android:background="@drawable/common_round_red_bg"
+                            android:gravity="center"
+                            android:text="—"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lj_air_lay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center_vertical"
+                        android:visibility="invisible"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="AQI"
+                            android:textColor="@color/commu_server_title_color"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_air"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="18"
+                            android:textColor="@color/commu_server_title_color"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_air_unit"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/comm_rect_maincolor"
+                            android:gravity="center"
+                            android:text="优"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/common_description_size" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/server_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:splitMotionEvents="false"
+                    android:visibility="gone" />
+
+                <com.yunfei.wh.ui.custom.MyListViewWidget
+                    android:id="@+id/listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:divider="@color/transparent"
+                    android:listSelector="@color/transparent"
+                    android:overScrollMode="never"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp"
+                    android:scrollbars="none"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </com.yunfei.wh.ui.custom.MyScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

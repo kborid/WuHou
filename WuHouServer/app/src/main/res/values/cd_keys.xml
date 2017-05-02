@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--app scheme-->
+    <string name="app_scheme">DCwuhou</string>
+    <!--Easy AR AppKey-->
+    <string name="EasyARAppKey">UGOhAg3JFpeFWrZaBY2SwSiyi8T3g2jn8JHjTpZBo5QdOiVe6fXrhPFRnRsrKMHHtQ2d1UE5WqM2FZsZTOvbx34t1jIf1UCzSyIq779b4d75e5276c781af9826027e99ecdKXuV1KBUEM2VZb9ANQqgpfwWmhV9MrGkXPQnkdqp5yfanBUxJdBsjfapyzFvxWT9ZUsB</string>
+    <!--美洽 AppKey-->
+    <string name="MeiChatAppKey">565e755c12840497642306bd127ed5dc</string>
+    <!-- umeng 分享申请的key -->
+    <string name="umeng_appkey">564d93d0e0f55ad7e2004287</string>
+    <!-- 微信平台id -->
+    <string name="wx_appid">wx9f61077d2fd04fb0</string>
+    <string name="wx_appsecret">629946e671cea49142d0e73edbdbb529</string>
+    <!-- qq平台 -->
+    <string name="qq_appid">1104702475</string>
+    <string name="qq_appkey">SpbkYnVjIoZyyKye</string>
+    <string name="qq_scheme">tencent1104702475</string>
+    <!--&lt;!&ndash; 百度定位key &ndash;&gt;
+    <string name="baidu_location_appkey">s2lmgmoiG2NGegGowH1qXK8c</string>-->
+    <!-- 高德定位key todo -->
+    <string name="amap_location_appkey">ab74a2c446f4ff6f5959f2cc18ddc72d</string>
+    <!-- 极光推送 -->
+    <string name="jpush_appkey"><!--f183016d01db77c8761aec96--></string>
+    <!-- 设置默认城市信息 -->
+    <string name="areaCode">510107</string>
+    <string name="areaName">武侯</string>
+    <string name="siteId">510100</string>//成都siteId
+    <string name="cityId">CN101270101</string>
+    <string name="uat_server_url">http://uat.zaichengdu.com/</string>
+    <string name="release_server_url">http://cdwh.org/</string>
+    <string name="comm_server_url">http://www.cdwh.org/</string>
+    <string name="portal">wh_portal/</string>
+    <string name="comm_portal">hm_portal/</string>
+
+    <!--模版ID-->
+    <string name="businessType_bindPhone">37555</string>
+    <string name="businessType_findPwd">35548</string>
+    <string name="businessType_loginYZM">127508</string>
+</resources>

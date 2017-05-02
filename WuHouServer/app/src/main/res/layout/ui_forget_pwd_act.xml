@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/viewPager"
+    android:background="@drawable/share_bg">
+
+    <include layout="@layout/comm_title" />
+
+    <TableLayout
+        android:id="@+id/table_layout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:background="@drawable/edit_box_bg"
+        android:orientation="vertical"
+        android:stretchColumns="1">
+
+        <TableRow
+            android:gravity="center_vertical"
+            android:minHeight="60dp"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp"
+                android:src="@drawable/iv_phone" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="left"
+                android:hint="@string/input_phonenumber"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:textColor="@color/item_key_color"
+                android:textSize="@dimen/common_text_size" />
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/item_line"
+            android:padding="2dp" />
+
+        <TableRow
+            android:gravity="center_vertical"
+            android:minHeight="60dp"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp"
+                android:src="@drawable/iv_qr" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_yzm"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/input_checknumber"
+                    android:maxLength="10"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:singleLine="true"
+                    android:textColor="@color/item_key_color"
+                    android:textSize="@dimen/common_text_size" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right|center">
+
+                    <Button
+                        android:id="@+id/btn_getYZM"
+                        style="@style/blue_button_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:padding="3dp"
+                        android:text="@string/get_checknumber"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/common_description_size" />
+                </LinearLayout>
+            </LinearLayout>
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/item_line"
+            android:padding="2dp" />
+
+        <TableRow
+            android:gravity="center_vertical"
+            android:minHeight="60dp"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp"
+                android:src="@drawable/password" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="left"
+                android:hint="重新设置您的登录密码"
+                android:maxLength="20"
+                android:password="true"
+                android:singleLine="true"
+                android:textColor="@color/item_key_color"
+                android:textSize="@dimen/common_text_size" />
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/item_line"
+            android:padding="2dp" />
+
+        <TableRow
+            android:gravity="center_vertical"
+            android:minHeight="60dp"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp"
+                android:src="@drawable/iv_pwd_t" />
+
+            <EditText
+                android:id="@+id/et_password2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="left"
+                android:hint="请确认您的登录密码"
+                android:maxLength="20"
+                android:password="true"
+                android:singleLine="true"
+                android:textColor="@color/item_key_color"
+                android:textSize="@dimen/common_text_size" />
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btn_reset"
+        style="@style/blue_button_style"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:layout_marginTop="15dp"
+        android:text="@string/done"
+        android:textSize="@dimen/common_text_size" />
+</LinearLayout>

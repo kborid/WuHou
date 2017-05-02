@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/viewPager">
+
+    <include layout="@layout/comm_title" />
+
+    <TextView
+        android:id="@+id/tv_userinfo"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/common_item_selector_bg"
+        android:drawableLeft="@drawable/menu_userinfo"
+        android:drawablePadding="16dp"
+        android:drawableRight="@drawable/accessory_black"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/uc_userinfo"
+        android:textColor="@color/item_value_color"
+        android:textSize="@dimen/common_text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/item_line" />
+
+    <TextView
+        android:id="@+id/tv_account_safe"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/common_item_selector_bg"
+        android:drawableLeft="@drawable/menu_safe"
+        android:drawablePadding="16dp"
+        android:drawableRight="@drawable/accessory_black"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/uc_accountsafe"
+        android:textColor="@color/item_value_color"
+        android:textSize="@dimen/common_text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/item_line" />
+
+    <TextView
+        android:id="@+id/tv_auth"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/common_item_selector_bg"
+        android:drawableLeft="@drawable/menu_auth"
+        android:drawablePadding="16dp"
+        android:drawableRight="@drawable/accessory_black"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/uc_authentication"
+        android:textColor="@color/item_value_color"
+        android:textSize="@dimen/common_text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/item_line" />
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/common_item_selector_bg"
+        android:drawableLeft="@drawable/menu_address"
+        android:drawablePadding="16dp"
+        android:drawableRight="@drawable/accessory_black"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/uc_addressmanager"
+        android:textColor="@color/item_value_color"
+        android:textSize="@dimen/common_text_size" />
+</LinearLayout>

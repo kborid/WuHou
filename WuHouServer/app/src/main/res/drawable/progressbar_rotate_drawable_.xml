@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 自定义progress旋转图片及旋转动画 -->
+<animated-rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_loading"
+    android:pivotX="50%"
+    android:pivotY="50%" />

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/common_loading"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/transparent15"
+    android:gravity="center" >
+
+    <!-- 加载页面 -->
+
+    <LinearLayout
+        android:id="@+id/waitting_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp" >
+        <!--
+             <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/progressBarStyle" />
+        -->
+
+        <com.yunfei.wh.ui.custom.ProgressWheel
+            xmlns:wheel="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/progress_wheel"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            wheel:matProg_barColor="@color/main_color_wh"
+            wheel:matProg_fillRadius="true"
+            wheel:matProg_progressIndeterminate="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/loading"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- 重新加载页面 -->
+
+    <LinearLayout
+        android:id="@+id/retry_layout_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40.0dip"
+            android:background="@drawable/error" />
+
+        <TextView
+            android:id="@+id/tv_retry_msg"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10.0dip"
+            android:gravity="center"
+            android:text="错误描述"
+            android:textColor="#4c4c4c"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_refersh"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="刷  新"
+            android:textColor="#4c4c4c"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

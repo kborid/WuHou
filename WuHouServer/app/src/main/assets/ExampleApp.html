@@ -1,0 +1,159 @@
+<!doctype html>
+<html><head>
+    <style type='text/css'>
+        html { font-family:Helvetica; color:#222; }
+        h1 { color:steelblue; font-size:30px; margin-top:24px; }
+        button { margin:0 3px 10px; font-size:30px; }
+        .logLine { border-bottom:1px solid #ccc; padding:4px 2px; font-family:courier; font-size:20px; }
+        </style>
+</head>
+
+<body>
+    <title>Test Demo </title>
+    <h1>Test Demo </h1>
+    
+    <form id="test-form">
+        <input type="text" name="url">
+            <button type="button" onclick="doSubmitForm()">跳转URL</button>
+            </form>
+    
+    <h2 font-size:30px>下面的按钮可以测试接口功能，在上面输入框输入目标页面地址，也可以将目标页面地址复制到剪贴板自动识别</h2>
+    
+    
+    <script>
+        window.onerror = function(err) {
+            log('window.onerror: ' + err)
+        }
+    
+    function doSubmitForm() {
+        var form = document.getElementById('test-form');
+        window.location.href=form.url.value;
+    }
+    
+    function connectWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            callback(WebViewJavascriptBridge)
+        } else {
+            document.addEventListener('WebViewJavascriptBridgeReady', function() {
+                                      callback(WebViewJavascriptBridge)
+                                      }, false)
+        }
+    }
+    
+    connectWebViewJavascriptBridge(function(bridge) {
+                                   var uniqueId = 1
+                                   function log(message, data) {
+                                   var log = document.getElementById('log')
+                                   var el = document.createElement('div')
+                                   el.className = 'logLine'
+                                   el.innerHTML = uniqueId++ + '. ' + message + ':<br/>' + JSON.stringify(data)
+                                   if (log.children.length) { log.insertBefore(el, log.children[0]) }
+                                   else { log.appendChild(el) }
+                                   }
+                                   bridge.init(function(message, responseCallback) {
+                                               log('JS got a message', message)
+                                               var data = { 'Javascript Responds':'Wee!' }
+                                               log('JS responding with', data)
+                                               responseCallback(data)
+                                               })
+                                   
+                                   //注册方法列表 ，注入到native分享列表
+                                   bridge.registerHandler('addActionMethodsToNative', function(data, responseCallback) {
+                                                          var responseData = [{'title':'哈哈哈',
+                                                                              'imgURL':'http://wx.qlogo.cn/mmopen/BVRyAastaQ2tdQvcAqRFWPWo4PG8ce07Qng0UnDNZoPGja0CkOcl2S3FqgyTUDBZIEVcCiacwt8486bickHyvSA8kBzC6rIefu/0',
+                                                                              'action':'actionHandler1'
+                                                                              },
+                                                                              {'title':'哈2',
+                                                                              'imgURL':'ic11on',
+                                                                              'action':'actionHandler2'
+                                                                              },
+                                                                              {'title':'分享test',
+                                                                              'imgURL':'ic11on',
+                                                                              'action':'shareHandler1',
+                                                                              'type'  :'share'
+                                                                              }];
+                                                          responseCallback(JSON.stringify(responseData))
+                                                          })
+                                   //上一步注册方法的回调事件
+                                   bridge.registerHandler('actionHandler1', function() {
+                                                          alert('actionHandler1 哈哈哈');
+                                                          })
+                                   
+                                   bridge.registerHandler('actionHandler2', function() {
+                                                          alert('actionHandler2 哈2');
+                                                          })
+                                   bridge.registerHandler('shareHandler1', function() {
+                                                          alert('shareHandler1 分享');
+                                                          })
+                                   
+                                   
+                                   var getUserIDButton = document.getElementById('buttons').appendChild(document.createElement('button'))
+                                   getUserIDButton.innerHTML = 'getUserID'
+                                   getUserIDButton.onclick = function(e) {
+                                   e.preventDefault()
+                                   bridge.callHandler('getUserId', null, function(response) {
+                                                      alert(response);
+                                                      log('getUserID', response)
+                                                      })
+                                   
+                                   }
+                                   
+                                   var getUserTicket = document.getElementById('buttons').appendChild(document.createElement('button'))
+                                   getUserTicket.innerHTML = 'getUserTicket'
+                                   getUserTicket.onclick = function(e) {
+                                   e.preventDefault()
+                                   bridge.callHandler('getUserTicket', null, function(response) {
+                                                      alert(response);
+                                                      log('getUserTicket', response)
+                                                      })
+                                   
+                                   }
+                                   
+                                   
+                                   var getPhoneButton = document.getElementById('buttons').appendChild(document.createElement('button'))
+                                   getPhoneButton.innerHTML = 'getPhone'
+                                   getPhoneButton.onclick = function(e) {
+                                   e.preventDefault()
+                                   var str;
+                                   bridge.callHandler('getPhone',
+                                                      null,
+                                                      function(response) {
+                                                      alert(response);
+                                                      log('getPhone', response)
+                                                      })
+                                   }
+                                   
+                                   var getDeviceIdButton = document.getElementById('buttons').appendChild(document.createElement('button'))
+                                   getDeviceIdButton.innerHTML = 'getDeviceId'
+                                   getDeviceIdButton.onclick = function(e) {
+                                   e.preventDefault()
+                                   bridge.callHandler('getDeviceId',
+                                                      null,
+                                                      function(response) {
+                                                      alert(response);
+                                                      log('getDeviceId', response);
+                                                      })
+                                   }
+                                   
+                                   var showException = document.getElementById('buttons').appendChild(document.createElement('button'))
+                                   showException.innerHTML = 'showException'
+                                   showException.onclick = function(e) {
+                                   e.preventDefault()
+                                   bridge.callHandler('showException', {'exception':'xxxxxxxxxxxx'},null)
+                                   }
+                                   
+                                   var getCityInfo = document.getElementById('buttons').appendChild(document.createElement('button'))
+                                   getCityInfo.innerHTML = 'getCityInfo'
+                                   getCityInfo.onclick = function(e) {
+                                   e.preventDefault()
+                                   bridge.callHandler('getCityInfo',
+                                                      null,
+                                                      function(response) {
+                                                      log('getCityInfo', response)
+                                                      alert(response);
+                                                      })
+                                   }
+                                   })
+        </script>
+    <div id='buttons'></div> <input accept="image/*" type="file"> <div id='log'></div>
+</body></html>

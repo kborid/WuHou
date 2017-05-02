@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--app scheme-->
+    <string name="app_scheme">DCliangjiang</string>
+
+    <!--Easy AR AppKey undo -->
+    <string name="EasyARAppKey">UGOhAg3JFpeFWrZaBY2SwSiyi8T3g2jn8JHjTpZBo5QdOiVe6fXrhPFRnRsrKMHHtQ2d1UE5WqM2FZsZTOvbx34t1jIf1UCzSyIq779b4d75e5276c781af9826027e99ecdKXuV1KBUEM2VZb9ANQqgpfwWmhV9MrGkXPQnkdqp5yfanBUxJdBsjfapyzFvxWT9ZUsB</string>
+    <!--美洽 AppKey undo -->
+    <string name="MeiChatAppKey">565e755c12840497642306bd127ed5dc</string>
+    <!-- umeng 分享申请的key -->
+    <string name="umeng_appkey">5852111d4544cb655b001a15</string>
+    <!-- 微信平台id -->
+    <string name="wx_appid">wx50c5d44a4d90e226</string>
+    <string name="wx_appsecret">fda725f57dc45e515871c359020845bb</string>
+    <!-- qq平台 -->
+    <string name="qq_appid">1105813071</string>
+    <string name="qq_appkey">1Qwf9dX0ytLO06o7</string>
+    <string name="qq_scheme">tencent1105813071</string>
+    <!-- 百度定位key todo -->
+    <!--<string name="baidu_location_appkey">s2lmgmoiG2NGegGowH1qXK8c</string>-->
+    <!-- 高德定位key todo -->
+    <string name="amap_location_appkey">3f37a7be77d761ad0950c982b896f784</string>
+    <!-- 极光推送 undo -->
+    <string name="jpush_appkey"><!--f183016d01db77c8761aec96--></string>
+    
+    <!-- 设置默认城市信息 -->
+    <string name="areaCode">500999</string>
+    <string name="areaName">两江</string>
+    <string name="siteId">500000</string>//重庆siteId
+    <string name="cityId">CN101040100</string>
+    <string name="uat_server_url">http://www.zaichongqing.com/</string>
+    <string name="release_server_url">http://www.zaichongqing.com/</string>
+    <string name="comm_server_url">http://www.zaichongqing.com/</string>
+    <string name="portal">lj_portal/</string>
+    <string name="comm_portal">thmz_portal/</string>
+
+    <!--模版ID-->
+    <string name="businessType_bindPhone">160137</string>
+    <string name="businessType_findPwd">160134</string>
+    <string name="businessType_loginYZM">160139</string>
+
+</resources>

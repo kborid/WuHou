@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/viewPager">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_lay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.yunfei.wh.ui.custom.MyScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:splitMotionEvents="false">
+
+                <com.yunfei.wh.ui.custom.CommonBannerLayout
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:id="@+id/line_below_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:visibility="gone"
+                    android:background="@color/commu_server_divider_color" />
+
+                <LinearLayout
+                    android:id="@+id/icon_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="103dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:splitMotionEvents="false" />
+
+                <LinearLayout
+                    android:id="@+id/server_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:splitMotionEvents="false" />
+            </LinearLayout>
+        </com.yunfei.wh.ui.custom.MyScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

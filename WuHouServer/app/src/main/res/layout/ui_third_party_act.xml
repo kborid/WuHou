@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/viewPager">
+
+    <include layout="@layout/comm_title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="@string/note3"
+        android:textColor="#565656"
+        android:textSize="@dimen/common_description_size" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@drawable/ic_bind_wx"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text="微信"
+            android:textColor="@color/item_value_color"
+            android:textSize="@dimen/common_text_size" />
+
+        <Button
+            android:id="@+id/btn_bind_wx"
+            style="@style/blue_button_style"
+            android:layout_width="48dp"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:text="绑定"
+            android:textSize="@dimen/common_description_size" />
+    </RelativeLayout>
+</LinearLayout>

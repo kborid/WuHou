@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title_lay"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_height"
+    android:background="@color/main_color_wh">
+
+    <!-- 捕获焦点 -->
+
+    <View
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <TextView
+        android:id="@+id/tv_left_title"
+        android:layout_width="60dp"
+        android:layout_height="fill_parent"
+        android:drawableLeft="@drawable/m_back"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dip"
+        android:paddingRight="5dip"
+        android:textColor="@color/title_text_color"
+        android:textSize="@dimen/title_left_reight_text_size" />
+
+    <TextView
+        android:id="@+id/tv_center_title"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textColor="@color/title_text_color"
+        android:textSize="@dimen/title_center_text_size" />
+
+    <TextView
+        android:id="@+id/tv_right_title"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dip"
+        android:paddingRight="16dip"
+        android:textColor="@color/title_text_color"
+        android:textSize="@dimen/title_left_reight_text_size" />
+
+    <!-- <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/title_line" /> -->
+
+</RelativeLayout>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/comm_title" />
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/title_bg_color"
+        android:gravity="center"
+        android:text="@string/auditing"
+        android:textColor="#fff"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:stretchColumns="1">
+
+                <TableRow android:paddingLeft="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="49dp"
+                        android:gravity="left|center_vertical"
+                        android:singleLine="true"
+                        android:text="@string/real_name"
+                        android:textColor="@color/item_value_color"
+                        android:textSize="@dimen/common_text_size" />
+
+                    <EditText
+                        android:id="@+id/et_userName"
+                        android:layout_width="match_parent"
+                        android:layout_height="49dp"
+                        android:background="@null"
+                        android:gravity="left|center_vertical"
+                        android:hint="@string/description_real_name"
+                        android:paddingLeft="15dp"
+                        android:singleLine="true"
+                        android:textColor="@color/item_key_color"
+                        android:textSize="@dimen/common_text_size" />
+                </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/title_line" />
+
+                <TableRow android:paddingLeft="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="49dp"
+                        android:gravity="left|center_vertical"
+                        android:singleLine="true"
+                        android:text="@string/id_number"
+                        android:textColor="@color/item_value_color"
+                        android:textSize="@dimen/common_text_size" />
+
+                    <EditText
+                        android:id="@+id/et_idcardcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="49dp"
+                        android:background="@null"
+                        android:gravity="left|center_vertical"
+                        android:hint="@string/description_id_num"
+                        android:maxLength="18"
+                        android:paddingLeft="15dp"
+                        android:singleLine="true"
+                        android:textColor="@color/item_key_color"
+                        android:textSize="@dimen/common_text_size" />
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_photo_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/id_picture"
+                    android:textColor="@color/item_key_color"
+                    android:textSize="@dimen/common_description_size" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/positive_pic"
+                        android:textColor="@color/item_value_color"
+                        android:textSize="@dimen/common_text_size" />
+
+                    <ImageView
+                        android:id="@+id/iv_front_certificate_pic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:adjustViewBounds="true"
+                        android:maxWidth="158dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_certificate_pic" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/title_line"
+                    android:paddingLeft="15dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/reverse_side_pic"
+                        android:textColor="@color/item_value_color"
+                        android:textSize="@dimen/common_text_size" />
+
+                    <ImageView
+                        android:id="@+id/iv_back_certificate_pic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:adjustViewBounds="true"
+                        android:maxWidth="158dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_certificate_pic" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center">
+
+                    <CheckBox
+                        android:id="@+id/checkBox"
+                        style="@style/checkBox_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:checked="true"
+                        android:text="  我已阅读并同意"
+                        android:textColor="@color/item_value_color"
+                        android:textSize="@dimen/common_text_size" />
+
+                    <TextView
+                        android:id="@+id/tv_agreement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="《实名认证协议》"
+                        android:textColor="@color/main_color_wh"
+                        android:textSize="@dimen/common_text_size" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    style="@style/blue_button_style"
+                    android:layout_margin="20dp"
+                    android:text="提交认证" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

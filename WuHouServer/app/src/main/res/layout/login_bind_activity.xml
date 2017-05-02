@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/viewPager"
+    android:background="@drawable/share_bg">
+
+    <include layout="@layout/comm_title" />
+
+    <TableLayout
+        android:id="@+id/table_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/edit_box_bg"
+        android:orientation="vertical"
+        android:stretchColumns="1">
+
+        <TableRow
+            android:gravity="center_vertical"
+            android:minHeight="60dp"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="8dp"
+                android:src="@drawable/iv_phone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/input_phonenumber"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:singleLine="true"
+                    android:textColor="@color/item_key_color"
+                    android:textColorHint="@color/item_key_color"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right|center">
+
+                    <Button
+                        android:id="@+id/btn_getYZM"
+                        style="@style/blue_button_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:padding="3dp"
+                        android:text="@string/get_checknumber"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/common_description_size" />
+                </LinearLayout>
+            </LinearLayout>
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/item_line"
+            android:padding="2dp" />
+
+        <TableRow
+            android:gravity="center_vertical"
+            android:minHeight="60dp"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingLeft="10dp"
+                android:paddingRight="8dp"
+                android:src="@drawable/iv_qr" />
+
+            <EditText
+                android:id="@+id/et_yzm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="left"
+                android:hint="@string/input_checknumber"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:textColor="@color/item_key_color"
+                android:textColorHint="@color/item_key_color"
+                android:textSize="15sp" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/agreement_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center|left"
+        android:paddingLeft="36dp">
+
+        <RelativeLayout
+            android:id="@+id/checkBox_lay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                style="@style/checkBox_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/checkBox"
+                android:paddingLeft="8dp"
+                android:text="@string/agree_agement2"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_description_size" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/agement"
+            android:textColor="@color/main_color_wh"
+            android:textSize="@dimen/common_description_size" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_submit"
+        style="@style/blue_button_style"
+        android:layout_height="44dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/common_round_rectangle_white_bg"
+        android:text="@string/bind"
+        android:textColor="@color/main_color_wh"
+        android:textSize="18sp" />
+
+</LinearLayout>

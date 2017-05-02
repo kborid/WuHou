@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yunfei.wh.ui.custom.MultiChoiceLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/common_item_selector_bg">
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:singleLine="true"
+        android:textSize="@dimen/common_description_size" />
+
+</com.yunfei.wh.ui.custom.MultiChoiceLayout>

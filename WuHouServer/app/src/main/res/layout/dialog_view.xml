@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_dialog_ll_root"
+    android:layout_width="320dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/p3102_popupbase_2"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/id_ll_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/id_img_warning"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/title_view"
+            style="@style/textNoShadow"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="TextView"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/common_text_size" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarThumbVertical="@drawable/p3016_scrollbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:splitMotionEvents="false">
+
+            <RelativeLayout
+                android:id="@+id/content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/message_view"
+                        style="@style/textNoShadow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="10dp"
+                        android:text="TextView"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/common_text_size"
+                        android:textStyle="" />
+
+                    <LinearLayout
+                        android:id="@+id/checkboxLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="12dp">
+
+                        <ImageView
+                            android:id="@+id/checkbox_imageview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/check" />
+
+                        <TextView
+                            android:id="@+id/checkbox_textview"
+                            style="@style/textNoShadow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="left"
+                            android:text="Do not ask again"
+                            android:textColor="@color/text_black"
+                            android:textSize="13dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:splitMotionEvents="false">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/button1"
+            style="@style/textNoShadow"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@drawable/common_item_selector_bg"
+            android:singleLine="true"
+            android:text="button1"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/common_text_size"
+            android:textStyle="" />
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/textNoShadow"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="3"
+            android:background="@drawable/common_item_selector_bg"
+            android:singleLine="true"
+            android:text="button2"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/common_text_size"
+            android:textStyle="" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>

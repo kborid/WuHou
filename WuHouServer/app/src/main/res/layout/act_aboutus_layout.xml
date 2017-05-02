@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/viewPager">
+
+    <include layout="@layout/comm_title" />
+
+    <TextView
+        android:id="@+id/tv_access"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/common_item_selector_bg"
+        android:drawableLeft="@drawable/menu_access"
+        android:drawablePadding="16dp"
+        android:drawableRight="@drawable/accessory_black"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/uc_access"
+        android:textColor="@color/item_value_color"
+        android:textSize="@dimen/common_text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/item_line" />
+
+    <TextView
+        android:id="@+id/tv_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/common_item_selector_bg"
+        android:drawableLeft="@drawable/menu_suggest"
+        android:drawablePadding="16dp"
+        android:drawableRight="@drawable/accessory_black"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/uc_suggest_feedback"
+        android:textColor="@color/item_value_color"
+        android:textSize="@dimen/common_text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/item_line" />
+
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/common_item_selector_bg"
+        android:drawableLeft="@drawable/menu_about"
+        android:drawablePadding="16dp"
+        android:drawableRight="@drawable/accessory_black"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/uc_about_us"
+        android:textColor="@color/item_value_color"
+        android:textSize="@dimen/common_text_size" />
+</LinearLayout>

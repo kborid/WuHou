@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- common string -->
+    <string name="app_name">武侯服务</string>
+    <string name="exit_tip">是否确定退出？</string>
+    <string name="alert">提示</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="done">完成</string>
+    <string name="download">下载</string>
+    <string name="version_update">版本更新</string>
+    <string name="next">下一步</string>
+    <string name="reset">重置</string>
+    <string name="back">返回</string>
+    <string name="close">关闭</string>
+    <string name="loading">正在加载，请稍候…</string>
+    <string name="submitting">正在提交，请稍候…</string>
+    <string name="fail_present">提交数据失败</string>
+    <string name="suc_present">提交成功</string>
+    <string name="radio_home">首页</string>
+    <string name="radio_server">客服</string>
+    <string name="radio_servercenter">办事大厅</string>
+    <string name="radio_community">社区</string>
+    <string name="radio_discovery">发现</string>
+    <string name="radio_my">我的</string>
+    <string name="dialog_tip_net_error">网络连接失败，请检查网络</string>
+    <string name="dialog_tip_null_error">数据请求失败，请重试</string>
+    <string name="dialog_tip_bind_phone_error">手机绑定失败，请重试</string>
+    <string name="dialog_tip">此应用需要更新，系统检测到您正在使用非wifi网络，继续将产生流量费用，是否继续？</string>
+    <string name="bind_phone_tip">请完善手机号码，便于武侯服务为您提供更优质的服务</string>
+    <string name="bind_phone_second_tip">判断您已经注册过武侯服务,请登录绑定第三方账号信息</string>
+    <string name="identity_app">该功能需要实名认证，请先去实名认证</string>
+    <string name="install">新版APP下载完成，请点击安装升级</string>
+
+    <string-array name="sex_array">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+
+    <string-array name="marry_array">
+        <item>已婚</item>
+        <item>未婚</item>
+        <item>保密</item>
+    </string-array>
+
+    <item name="tag_key" type="id" />
+
+    <string name="common_order">预约排号</string>
+
+    <string name="footer_loading">正在加载</string>
+    <string name="footer_nomore">没有更多数据</string>
+    <string name="footer_click">点击加载更多</string>
+    <string name="footer_pullup">上滑加载更多</string>
+
+    <!--登录-->
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="login">登  录</string>
+    <string name="wx_login">微信登录</string>
+    <string name="not_install_wx">没有安装微信</string>
+    <string name="not_install_wx_note"><u>没有安装微信? 使用短信动态密码登录</u></string>
+    <string name="forget_pwd">忘记密码?</string>
+    <string name="register">立即注册</string>
+    <string name="login_thrid">使用第三方账号登录</string>
+    <string name="reset_pwd">重置密码</string>
+    <string name="input_phonenumber">请输入您的手机号码</string>
+    <string name="input_checknumber">请输入短信验证码</string>
+    <string name="get_checknumber">获取验证码</string>
+
+    <!--首页-->
+    <string name="homepage_title">武侯服务</string>
+
+    <!--社区-->
+    <string name="commu_title">黉门</string>
+    <string name="commu_introduction">社区介绍</string>
+    <string name="commu_market">社区商城</string>
+    <string name="commu_more">更多服务</string>
+    <string name="commu_server">服务</string>
+
+    <!--大厅-->
+    <string name="order_screen">排号大厅</string>
+    <string name="server_title">办事大厅</string>
+    <!--发现-->
+    <string name="all_channel">全部频道</string>
+    <string name="dis_public">发表你的评论</string>
+    <string name="dis_publicing">发表</string>
+    <string name="dis_comment_lable">全部评论(%1$d)</string>
+    <string name="dis_content_title">正文</string>
+    <string name="dis_no_comment">暂无评论</string>
+
+    <!--我的-->
+    <string name="uc_title">个人中心</string>
+    <string name="uc_message">消息</string>
+    <string name="uc_empty_message">暂无消息</string>
+    <string name="uc_server">客服</string>
+    <string name="uc_myorder">我的预约排号</string>
+    <string name="uc_mynumber">我的取号</string>
+    <string name="uc_myemail">我的邮寄取件</string>
+    <string name="uc_mydealbyorther">我的证照代办</string>
+    <string name="uc_mymark">我的收藏</string>
+    <string name="uc_account_info">账户信息</string>
+    <string name="uc_other_order">其他订单</string>
+    <string name="uc_userinfo">个人信息</string>
+    <string name="uc_accountsafe">账户安全</string>
+    <string name="uc_authentication">实名认证</string>
+    <string name="uc_addressmanager">地址管理</string>
+    <string name="uc_friend">邀请好友</string>
+    <string name="uc_access">评价</string>
+    <string name="uc_suggest_feedback">意见反馈</string>
+    <string name="uc_about">关于</string>
+    <string name="uc_about_us">关于我们</string>
+
+    <!--搜索-->
+    <string name="src_not_find">没有找到相关服务</string>
+    <string name="src_input_hint">请输入服务名称</string>
+    <!-- ========个人中心======== -->
+
+    <string name="no_data">暂无数据</string>
+    <string name="edit_info">编辑资料</string>
+    <string name="save">保存</string>
+    <string name="saving">正在保存，请稍候…</string>
+    <string name="save_success">资料修改成功!</string>
+    <string name="change_photo">更改头像</string>
+    <string name="load_image_error">获取图片失败，请重试</string>
+    <string name="submitting_photo">正在提交头像，请稍候…</string>
+    <string name="upload_photo_failed">头像上传失败!</string>
+    <string name="upload_photo_success">头像上传成功!</string>
+    <string name="nick_name">昵称</string>
+    <string name="local">所在地</string>
+    <string name="sex">性别</string>
+    <string name="choose_sex">请选择性别</string>
+    <string name="birthday">生日</string>
+    <string name="birthday_hint">请选择出生日期</string>
+    <string name="birthday_check">生日不能超过当前日期</string>
+    <string name="marry">婚姻</string>
+    <string name="rejected">已驳回</string>
+    <string name="auditing">认证审核中…</string>
+    <string name="audited">已认证</string>
+    <string name="not_audited">未认证</string>
+    <string name="logging_out">正在注销，请稍候…</string>
+    <string name="email">邮箱</string>
+    <string name="third_account">第三方账号</string>
+    <string name="modify_password">修改密码</string>
+    <string name="log_out">退出登录</string>
+    <string name="phone_number">手机号码</string>
+    <string name="auth_deal">实名认证协议</string>
+    <string name="real_name">真实姓名</string>
+    <string name="description_real_name">填写您的真实姓名</string>
+    <string name="id_number">身份证号</string>
+    <string name="description_id_num">填写您的18位身份证号码</string>
+    <string name="id_picture">身份证照片</string>
+    <string name="positive_pic">正面照片</string>
+    <string name="reverse_side_pic">反面照片</string>
+    <string name="new_addr">新增</string>
+    <string name="new_address">新增地址</string>
+    <string name="no_address">还没有任何可用地址</string>
+    <string name="friend_list">邀请人列表</string>
+    <string name="friend_qq">邀请QQ好友</string>
+    <string name="friend_wx">邀请微信好友</string>
+    <string name="friend_ct">邀请通讯录</string>
+    <string name="friend_qr_code">扫描二维码加入 『武侯服务』</string>
+    <string name="suggest_hint">请填写您的宝贵意见</string>
+    <string name="suggest_submit">提交</string>
+    <string name="note1">登录后，可以在线咨询办事流程和相关政策</string>
+    <string name="note2">登录后，可以随时查看窗口排队情况，及\n时接收叫号通知</string>
+    <string name="note3">绑定的账号可用作一键登录</string>
+    <string name="toregister">注册</string>
+    <string name="tologin">登录</string>
+    <string name="agree_agement">我已阅读并同意</string>
+    <string name="agree_agement2">我同意武侯网上市民中心的</string>
+    <string name="agement">《注册协议》</string>
+    <string name="bind">绑  定</string>
+    <string name="bind_phone">绑定手机号</string>
+    <string name="old_password">原密码：</string>
+    <string name="old_password_hint">请输入原密码</string>
+    <string name="new_password">新密码：</string>
+    <string name="new_password_hint">请输入新密码，6–20个字符</string>
+    <string name="confirm_password">确认密码：</string>
+    <string name="confirm_password_hint">请重新输入新密码</string>
+
+    <!--地图-->
+    <string name="detail"><u>详情</u></string>
+
+    <string name="develop_test">开发测试</string>
+    <string name="js_test">JS测试</string>
+    <string name="developing">正在建设中，敬请期待</string>
+    <string name="qr_scan">将二维码/条码放入取景框内，即可自动扫描</string>
+    <string name="ret_scan">扫描结果</string>
+    <string name="my_code">我的二维码</string>
+    <string name="ar_ex">AR增强现实体验</string>
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/viewPager"
+    android:layout_margin="5dp"
+    android:background="@drawable/common_round_rectangle_white_bg">
+
+    <LinearLayout
+        android:id="@+id/all_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:splitMotionEvents="false">
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:splitMotionEvents="false">
+
+                <include
+                    android:id="@+id/wx_share"
+                    layout="@layout/lv_share_item" />
+
+                <include
+                    android:id="@+id/circle_share"
+                    layout="@layout/lv_share_item" />
+
+                <include
+                    android:id="@+id/qq_share"
+                    layout="@layout/lv_share_item" />
+
+                <include
+                    android:id="@+id/sina_share"
+                    layout="@layout/lv_share_item" />
+
+                <!--<include-->
+                <!--android:id="@+id/msg_share"-->
+                <!--layout="@layout/lv_share_item" />-->
+                <LinearLayout
+                    android:id="@+id/share_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:splitMotionEvents="false" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <View
+            android:id="@+id/line_view"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/item_line" />
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/menu_layout"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:splitMotionEvents="false" />
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/item_line" />
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/common_item_selector_bg"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/main_color_wh"
+        android:textSize="17sp" />
+</LinearLayout>
