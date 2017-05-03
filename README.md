@@ -2,8 +2,8 @@ Command line instructions
 
 Git global setup
 
-git config --global user.name "段伟"
-git config --global user.email "kborid@163.com"
+git config --global user.name "xxx"
+git config --global user.email "xxx@xxx.com"
 
 Create a new repository
 
