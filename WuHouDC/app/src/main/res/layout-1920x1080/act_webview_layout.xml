@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_lay"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <!-- 捕获焦点 -->
+
+        <View
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
+        <TextView
+            android:id="@+id/tv_left_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawablePadding="20dp"
+            android:drawableLeft="@mipmap/m_back"
+            android:gravity="center"
+            android:text="返回"
+            android:textColor="@color/common_title_selector"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/tv_left_title_close"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/tv_left_title_back"
+            android:gravity="center"
+            android:text="关闭"
+            android:textColor="@color/common_title_selector"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/tv_center_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/title_text_color"
+            android:textSize="35sp" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:overScrollMode="never" />
+        <!-- 加载页面 -->
+
+        <com.yunfei.whsc.custom.CommonLoadingWidget
+            android:id="@+id/common_loading_widget"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>
