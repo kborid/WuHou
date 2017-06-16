@@ -96,23 +96,23 @@ public class WebChromeClientCompat extends WebChromeClient {
 	// 地理定位
 	@Override
 	public void onGeolocationPermissionsShowPrompt(final String origin, final Callback callback) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-		builder.setMessage("是否允许接入位置信息?");
-		OnClickListener dialogButtonOnClickListener = new OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int clickedButton) {
-				if (DialogInterface.BUTTON_POSITIVE == clickedButton) {
-					callback.invoke(origin, true, true);
-				} else if (DialogInterface.BUTTON_NEGATIVE == clickedButton) {
-					callback.invoke(origin, false, false);
-				}
-			}
-		};
-		builder.setPositiveButton("运行", dialogButtonOnClickListener);
-		builder.setNegativeButton("拒绝", dialogButtonOnClickListener);
-		builder.show();
-		// callback.invoke(origin, true, false);
+//		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//		builder.setMessage("是否允许接入位置信息?");
+//		OnClickListener dialogButtonOnClickListener = new OnClickListener() {
+//
+//			@Override
+//			public void onClick(DialogInterface dialog, int clickedButton) {
+//				if (DialogInterface.BUTTON_POSITIVE == clickedButton) {
+//					callback.invoke(origin, true, true);
+//				} else if (DialogInterface.BUTTON_NEGATIVE == clickedButton) {
+//					callback.invoke(origin, false, false);
+//				}
+//			}
+//		};
+//		builder.setPositiveButton("运行", dialogButtonOnClickListener);
+//		builder.setNegativeButton("拒绝", dialogButtonOnClickListener);
+//		builder.show();
+		callback.invoke(origin, true, true);
 		super.onGeolocationPermissionsShowPrompt(origin, callback);
 
 	}

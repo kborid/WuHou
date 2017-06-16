@@ -68,10 +68,17 @@ public class CommonBannerLayout extends RelativeLayout implements ViewPager.OnPa
     }
 
     private void findViews() {
+        RelativeLayout rootView = (RelativeLayout) findViewById(R.id.rootview);
         viewpager = (ViewPager) findViewById(R.id.viewpager);
         points_lay = (LinearLayout) findViewById(R.id.points_lay);
         mAdapter = new BannerImageAdapter(bannerViews);
         viewpager.setAdapter(mAdapter);
+
+        MarginLayoutParams mlp = (MarginLayoutParams) rootView.getLayoutParams();
+        float scale = (float) 640 / 365;
+        mlp.width = Utils.mScreenWidth;
+        mlp.height = (int)(mlp.width / scale);
+        rootView.setLayoutParams(mlp);
     }
 
     private void clearBannerBitmap() {

@@ -128,7 +128,10 @@ public class AccountSecurityActivity extends BaseActivity implements DataCallbac
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tr_certification:// 实名认证
-                mIntent = new Intent(this, IdentityVerificationActivity.class);
+//                mIntent = new Intent(this, IdentityVerificationActivity.class);
+                mIntent = new Intent(this, HtmlActivity.class);
+                mIntent.putExtra("title", "实名认证");
+                mIntent.putExtra("path", NetURL.IDENTITY_VERIFICATE);
                 startActivity(mIntent);
                 break;
             case R.id.tr_phone_number:

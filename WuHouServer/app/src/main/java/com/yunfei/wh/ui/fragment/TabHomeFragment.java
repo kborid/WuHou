@@ -99,7 +99,7 @@ public class TabHomeFragment extends BaseFragment implements DataCallback, Swipe
     private TextView tv_temp, tv_weather;
     private ImageView iv_weather;
     private WeatherForHomeBean weatherbean = null;
-    private static MainFragmentActivity.OnScrollChangeListener scrollChangeListener = null;
+    private static MainFragmentActivity.OnCallBackListener callBackListener = null;
     private static boolean isFirstLoad = false;
     private Map<Integer, Integer> mTag = new HashMap<>();
     private List<MainBannerBean> topBannerList = new ArrayList<>();
@@ -142,8 +142,8 @@ public class TabHomeFragment extends BaseFragment implements DataCallback, Swipe
         return view;
     }
 
-    public static Fragment newInstance(String key, MainFragmentActivity.OnScrollChangeListener scrollChangeListener) {
-        TabHomeFragment.scrollChangeListener = scrollChangeListener;
+    public static Fragment newInstance(String key, MainFragmentActivity.OnCallBackListener callBackListener) {
+        TabHomeFragment.callBackListener = callBackListener;
         Fragment fragment = new TabHomeFragment();
         Bundle bundle = new Bundle();
         bundle.putString("key", key);
@@ -155,8 +155,8 @@ public class TabHomeFragment extends BaseFragment implements DataCallback, Swipe
         super.onVisible();
         MainFragmentActivity.setOnPopUpShowListener(null);
 
-        if (scrollChangeListener != null) {
-            scrollChangeListener.onScroll(scrollValue);
+        if (callBackListener != null) {
+            callBackListener.onScroll(scrollValue);
         }
 
         if (UpdateControl.getInstance().isCanInstall()) {
@@ -173,7 +173,7 @@ public class TabHomeFragment extends BaseFragment implements DataCallback, Swipe
                 requestBannerData(BANNER_SERVER);
                 requestWeatherInfo();
                 requestServiceData();
-                if (SessionContext.getChannelList() == null || SessionContext.getChannelList().size() == 0) {
+                if (SessionContext.getChannelList().size() == 0) {
                     requestDiscoveryChannel();
                 }
             }
@@ -272,8 +272,8 @@ public class TabHomeFragment extends BaseFragment implements DataCallback, Swipe
             @Override
             public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
                 scrollValue = y;
-                if (scrollChangeListener != null) {
-                    scrollChangeListener.onScroll(scrollValue);
+                if (callBackListener != null) {
+                    callBackListener.onScroll(scrollValue);
                 }
             }
         });
@@ -355,7 +355,6 @@ public class TabHomeFragment extends BaseFragment implements DataCallback, Swipe
     private void setWeatherInfo(WeatherForHomeBean bean) {
         weather_lay.setVisibility(View.VISIBLE);
         String limitStr = bean.limitnumber;
-        System.out.println("limitStr = " + limitStr);
         if (StringUtil.notEmpty(limitStr)) {
             limit_lay.setVisibility(View.VISIBLE);
             String[] tmp = limitStr.split("\\|");
@@ -533,7 +532,7 @@ public class TabHomeFragment extends BaseFragment implements DataCallback, Swipe
         requestBannerData(BANNER_SERVER);
         requestWeatherInfo();
         requestServiceData();
-        if (SessionContext.getChannelList() == null || SessionContext.getChannelList().size() == 0) {
+        if (SessionContext.getChannelList().size() == 0) {
             requestDiscoveryChannel();
         }
     }
@@ -573,7 +572,6 @@ public class TabHomeFragment extends BaseFragment implements DataCallback, Swipe
                 }
                 case WEATHER_DATA: {
                     String res = response.body.toString();
-                    System.out.println("res = " + res);
                     weatherbean = JSON.parseObject(res, WeatherForHomeBean.class);
                     mTag.put(WEATHER_DATA, WEATHER_DATA);
                     break;

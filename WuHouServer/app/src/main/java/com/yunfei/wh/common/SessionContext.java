@@ -5,6 +5,7 @@ import com.prj.sdk.util.SharedPreferenceUtil;
 import com.prj.sdk.util.StringUtil;
 import com.yunfei.wh.net.bean.AppCategoryListBean;
 import com.yunfei.wh.net.bean.AppListBean;
+import com.yunfei.wh.net.bean.CommuInfoBean;
 import com.yunfei.wh.net.bean.DiscoveryChannelBean;
 import com.yunfei.wh.net.bean.MessageBean;
 import com.yunfei.wh.net.bean.UserInfo;
@@ -23,6 +24,7 @@ public class SessionContext {
     private static String mTicket;               // 票据信息
     private static List<AppCategoryListBean> mAllCagetoryList;    // 首页所有类型应用
     private static List<AppListBean> mAllHomeAppList;   // 首页所有应用
+    private static List<CommuInfoBean> mCommunityStreetList; //社区街道列表
     private static List<AppCategoryListBean> mAllCommuCagetoryList; //社区所有类型应用
     private static List<AppListBean> mAllCommuAppList; // 获取社区所有应用列表
     private static List<AppCategoryListBean> mAllInvestmentServiceList; //办事大厅所有类型应用
@@ -123,7 +125,7 @@ public class SessionContext {
         } else {
             mAllInvestmentAppList.clear();
         }
-        SessionContext.mAllInvestmentAppList.addAll(item);
+        mAllInvestmentAppList.addAll(item);
     }
 
     /**
@@ -142,7 +144,7 @@ public class SessionContext {
         } else {
             mAllCommuAppList.clear();
         }
-        SessionContext.mAllCommuAppList.addAll(item);
+        mAllCommuAppList.addAll(item);
     }
 
     public static void setAllCategoryList(List<AppCategoryListBean> item) {
@@ -151,7 +153,7 @@ public class SessionContext {
         } else {
             mAllCagetoryList.clear();
         }
-        SessionContext.mAllCagetoryList.addAll(item);
+        mAllCagetoryList.addAll(item);
     }
 
     public static List<AppCategoryListBean> getAllCategoryList() {
@@ -174,7 +176,7 @@ public class SessionContext {
         } else {
             mAllHomeAppList.clear();
         }
-        SessionContext.mAllHomeAppList.addAll(item);
+        mAllHomeAppList.addAll(item);
     }
 
     public static void setChannelList(List<DiscoveryChannelBean> item) {
@@ -183,7 +185,7 @@ public class SessionContext {
         } else {
             mDiscoreryChannelList.clear();
         }
-        SessionContext.mDiscoreryChannelList.addAll(item);
+        mDiscoreryChannelList.addAll(item);
     }
 
     public static List<DiscoveryChannelBean> getChannelList() {
@@ -191,6 +193,22 @@ public class SessionContext {
             mDiscoreryChannelList = new ArrayList<>();
         }
         return mDiscoreryChannelList;
+    }
+
+    public static List<CommuInfoBean> getCommunityStreetList() {
+        if (mCommunityStreetList == null) {
+            mCommunityStreetList = new ArrayList<>();
+        }
+        return mCommunityStreetList;
+    }
+
+    public static void setCommunityStreetList(List<CommuInfoBean> list) {
+        if (mCommunityStreetList == null) {
+            mCommunityStreetList = new ArrayList<>();
+        } else {
+            mCommunityStreetList.clear();
+        }
+        mCommunityStreetList.addAll(list);
     }
 
     /**
@@ -259,6 +277,9 @@ public class SessionContext {
         }
         if (mDiscoreryChannelList != null) {
             mDiscoreryChannelList.clear();
+        }
+        if (mCommunityStreetList != null) {
+            mCommunityStreetList.clear();
         }
     }
 }

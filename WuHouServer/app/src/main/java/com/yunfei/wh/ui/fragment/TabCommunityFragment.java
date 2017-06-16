@@ -30,9 +30,10 @@ import com.prj.sdk.net.data.DataCallback;
 import com.prj.sdk.net.data.DataLoader;
 import com.prj.sdk.util.LogUtil;
 import com.prj.sdk.util.NetworkUtil;
+import com.prj.sdk.util.SharedPreferenceUtil;
+import com.prj.sdk.util.StringUtil;
 import com.prj.sdk.util.Utils;
 import com.prj.sdk.widget.CustomToast;
-import com.yunfei.wh.BuildConfig;
 import com.yunfei.wh.R;
 import com.yunfei.wh.common.NetURL;
 import com.yunfei.wh.common.SessionContext;
@@ -45,7 +46,7 @@ import com.yunfei.wh.net.bean.MainBannerBean;
 import com.yunfei.wh.ui.activity.MainFragmentActivity;
 import com.yunfei.wh.ui.base.BaseFragment;
 import com.yunfei.wh.ui.custom.CommonBannerLayout;
-import com.yunfei.wh.ui.custom.CommuServerLayout;
+import com.yunfei.wh.ui.custom.CommuServerNewLayout;
 import com.yunfei.wh.ui.custom.MyScrollView;
 
 import java.net.ConnectException;
@@ -61,7 +62,7 @@ import java.util.Map;
 public class TabCommunityFragment extends BaseFragment implements DataCallback, SwipeRefreshLayout.OnRefreshListener {
 
     private static final int BANNER_TOP = 1;
-    private static final int SERVICE_REQUEST = 2;
+    private static final int COMMUNITY_SERVICE = 2;
     private static final int MANUAL_COMPLETE = 0x00;
     private static final int ERROR = 0x01;
     private SwipeRefreshLayout swipe_refresh_lay;
@@ -72,11 +73,13 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
     private CommonBannerLayout banner;
     private View line_below_banner;
     private int scrollValue = 0;
-    private static MainFragmentActivity.OnScrollChangeListener scrollChangeListener = null;
+    private static MainFragmentActivity.OnCallBackListener callBackListener = null;
     private static boolean isFirstLoad = false;
     private Map<Integer, Integer> mTag = new HashMap<>();
     private List<MainBannerBean> topBannerList = new ArrayList<>();
     private PopupWindow popupWindow;
+    private int mStreetId = -1;
+    private int mSelectedId = -1;
     private Handler myHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -84,9 +87,15 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
             switch (msg.what) {
                 case MANUAL_COMPLETE:
                     swipe_refresh_lay.setRefreshing(false);
+                    if (isProgressShowing()) {
+                        removeProgressDialog();
+                    }
                     break;
                 case ERROR:
                     swipe_refresh_lay.setRefreshing(false);
+                    if (isProgressShowing()) {
+                        removeProgressDialog();
+                    }
                     CustomToast.show(msg.obj.toString(), Toast.LENGTH_LONG);
                     break;
                 default:
@@ -95,9 +104,9 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
         }
     };
 
-    public static Fragment newInstance(String key, MainFragmentActivity.OnScrollChangeListener scrollChangeListener) {
+    public static Fragment newInstance(String key, MainFragmentActivity.OnCallBackListener callBackListener) {
         isFirstLoad = true;
-        TabCommunityFragment.scrollChangeListener = scrollChangeListener;
+        TabCommunityFragment.callBackListener = callBackListener;
         Fragment fragment = new TabCommunityFragment();
         Bundle bundle = new Bundle();
         bundle.putString("key", key);
@@ -118,26 +127,32 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
 
     protected void onVisible() {
         super.onVisible();
-        if (BuildConfig.FLAVOR.equals("liangjiang")) {
-            MainFragmentActivity.setOnPopUpShowListener(new MainFragmentActivity.OnPopUpShowListener() {
-                @Override
-                public void onShowPopUp() {
-                    showPopupWindow();
-                }
-            });
-        } else {
-            MainFragmentActivity.setOnPopUpShowListener(null);
-        }
+        MainFragmentActivity.setOnPopUpShowListener(new MainFragmentActivity.OnPopUpShowListener() {
+            @Override
+            public void onShowPopUp() {
+                showPopupWindow();
+            }
+        });
 
-        if (scrollChangeListener != null) {
-            scrollChangeListener.onScroll(scrollValue);
+        if (callBackListener != null) {
+            callBackListener.onScroll(scrollValue);
+            for (int i = 0; i < SessionContext.getCommunityStreetList().size(); i++) {
+                if (SessionContext.getCommunityStreetList().get(i).id == mStreetId) {
+                    callBackListener.onTitleChanged(SessionContext.getCommunityStreetList().get(i).catalogname);
+                    break;
+                }
+            }
         }
         banner.startBanner();
         if (isFirstLoad) {
             isFirstLoad = false;
             if (NetworkUtil.isNetworkAvailable()) {
-                requestHMBanner();
-                requestHMAllService();
+                if (mStreetId == -1 || SessionContext.getCommunityStreetList().size() == 0) {
+                    requestCommunityStreetList();
+                } else {
+                    requestStreetBanner(mStreetId);
+                    requestCommunityService(mStreetId);
+                }
             }
         }
     }
@@ -164,18 +179,9 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
     @Override
     protected void initParams() {
         super.initParams();
-        String[] commuName = new String[]{"康美", "大竹林", "礼嘉", "天宫殿", "人和", "鸳鸯", "翠云", "金山"};
-        String[] commuAddress = new String[]{"重庆市两江新区金竹路116号", "重庆市两江新区楠竹路", "重庆市两江新区礼仁路", "重庆市两江新区丁香路", "重庆市两江新区金开大道1号", "重庆市两江新区金开大道1335号", "重庆市两江新区云枫路", "重庆市两江新区金渝大道100号"};
-        List<CommuInfoBean> list = new ArrayList<>();
-        for (int i = 0; i < commuName.length; i++) {
-            CommuInfoBean bean = new CommuInfoBean();
-            bean.title = commuName[i];
-            bean.address = commuAddress[i];
-            list.add(bean);
-        }
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.commu_choose_layout, null);
         ListView listView = (ListView) view.findViewById(R.id.listview);
-        MyCommuAdapter adapter = new MyCommuAdapter(getActivity(), list);
+        MyCommuAdapter adapter = new MyCommuAdapter(getActivity(), SessionContext.getCommunityStreetList());
         listView.setAdapter(adapter);
         if (popupWindow == null) {
             popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, Utils.mScreenHeight * 2 / 3, true);
@@ -191,13 +197,25 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
         swipe_refresh_lay.setSize(SwipeRefreshLayout.DEFAULT);
         loadCommuCache();
         loadServiceLayout();
+        mStreetId = SharedPreferenceUtil.getInstance().getInt("streetId", -1);
+        if (-1 == mStreetId) {
+            for (int i = 0; i < SessionContext.getCommunityStreetList().size(); i++) {
+                CommuInfoBean bean = SessionContext.getCommunityStreetList().get(i);
+                if (StringUtil.notEmpty(bean.catalogurls)) {
+                    mStreetId = bean.id;
+                    SharedPreferenceUtil.getInstance().setInt("streetId", mStreetId);
+                    break;
+                }
+            }
+        }
+        mSelectedId = mStreetId;
     }
 
     private void showPopupWindow() {
         WindowManager.LayoutParams params = getActivity().getWindow().getAttributes();
         params.alpha = 0.8f;
         getActivity().getWindow().setAttributes(params);
-        popupWindow.showAtLocation(getView(), Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, Utils.mStatusBarHeight);
+        popupWindow.showAtLocation(getView(), Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
     private void parseCommuServer(ResponseData response) {
@@ -250,7 +268,7 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
         server_lay.removeAllViews();
 
         for (int i = 0; i < SessionContext.getAllCommuCagetoryList().size(); i++) {
-            if (SessionContext.getAllCommuCagetoryList().get(i).catalogname.equals("社区首页按钮")) {
+            if (SessionContext.getAllCommuCagetoryList().get(i).catalogname.equals("推荐位")) {
                 tabList.clear();
                 tabList.addAll(SessionContext.getAllCommuCagetoryList().get(i).applist);
                 SessionContext.getAllCommuCagetoryList().remove(i);
@@ -285,7 +303,7 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
         int length = SessionContext.getAllCommuCagetoryList().size();
         for (int i = 0; i < length; i++) {
             if (SessionContext.getAllCommuCagetoryList().get(i).applist.size() > 0) {
-                CommuServerLayout serverItem = new CommuServerLayout(getActivity());
+                CommuServerNewLayout serverItem = new CommuServerNewLayout(getActivity());
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 lp.topMargin = Utils.dip2px(10);
                 lp.leftMargin = Utils.dip2px(10);
@@ -321,8 +339,8 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
             @Override
             public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
                 scrollValue = y;
-                if (scrollChangeListener != null) {
-                    scrollChangeListener.onScroll(scrollValue);
+                if (callBackListener != null) {
+                    callBackListener.onScroll(scrollValue);
                 }
             }
         });
@@ -332,17 +350,45 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
                 WindowManager.LayoutParams params = getActivity().getWindow().getAttributes();
                 params.alpha = 1.0f;
                 getActivity().getWindow().setAttributes(params);
+
+                if (mStreetId != mSelectedId) {
+                    if (!isProgressShowing()) {
+                        showProgressDialog("", false);
+                    }
+                    mStreetId = mSelectedId;
+                    requestStreetBanner(mStreetId);
+                    requestCommunityService(mStreetId);
+                    if (callBackListener != null) {
+                        for (int i = 0; i < SessionContext.getCommunityStreetList().size(); i++) {
+                            if (SessionContext.getCommunityStreetList().get(i).id == mStreetId) {
+                                callBackListener.onTitleChanged(SessionContext.getCommunityStreetList().get(i).catalogname);
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         });
+    }
+
+    private void requestCommunityStreetList() {
+        RequestBeanBuilder b = RequestBeanBuilder.create(false);
+
+        ResponseData d = b.syncRequest(b);
+        d.path = NetURL.COMMUNITY_LIST;
+        d.flag = 0;
+
+        requestID = DataLoader.getInstance().loadData(this, d);
     }
 
     /**
      * 加载banner
      */
-    private void requestHMBanner() {
-        LogUtil.d("dw", "requestHMBanner()");
+    private void requestStreetBanner(int streetId) {
+        LogUtil.d("dw", "requestStreetBanner()");
         RequestBeanBuilder b = RequestBeanBuilder.create(false);
         b.addBody("getConfForMgr", "YES");
+        b.addBody("SID", String.valueOf(streetId));
         b.addBody("channel", "10");
 
         ResponseData data = b.syncRequest(b);
@@ -351,13 +397,14 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
         requestID = DataLoader.getInstance().loadData(this, data);
     }
 
-    private void requestHMAllService() {
-        LogUtil.d("dw", "requestHMAllService()");
+    private void requestCommunityService(int streetId) {
         RequestBeanBuilder b = RequestBeanBuilder.create(false);
-        b.addBody("getConfForMgr", "YES");
+        b.addBody("PID", String.valueOf(streetId));
+
         ResponseData d = b.syncRequest(b);
-        d.path = NetURL.ALL_HM_SERVER;
-        d.flag = SERVICE_REQUEST;
+        d.path = NetURL.COMMUNITY_SERVICE;
+        d.flag = COMMUNITY_SERVICE;
+
         requestID = DataLoader.getInstance().loadData(this, d);
     }
 
@@ -369,8 +416,41 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
     public void notifyMessage(ResponseData req, ResponseData res)
             throws Exception {
         if (res != null && res.body != null) {
-            synchronized (MyAsyncTask.class) {
-                new MyAsyncTask().setResponse(res).execute(req.flag);
+            if (req.flag == 0) {
+                JSONObject mJson = JSON.parseObject(res.body.toString());
+                if (mJson.containsKey("list_catalog")) {
+                    String mmJson = mJson.getString("list_catalog");
+                    List<CommuInfoBean> temp = JSON.parseArray(mmJson, CommuInfoBean.class);
+                    SessionContext.setCommunityStreetList(temp);
+                    if (mStreetId == -1) {
+                        for (int i = 0; i < SessionContext.getCommunityStreetList().size(); i++) {
+                            CommuInfoBean bean = SessionContext.getCommunityStreetList().get(i);
+                            if (StringUtil.notEmpty(bean.catalogurls)) {
+                                mStreetId = bean.id;
+                                SharedPreferenceUtil.getInstance().setInt("streetId", mStreetId);
+                                break;
+                            }
+                        }
+                    }
+
+                    if (callBackListener != null) {
+                        callBackListener.onScroll(scrollValue);
+                        for (int i = 0; i < SessionContext.getCommunityStreetList().size(); i++) {
+                            if (SessionContext.getCommunityStreetList().get(i).id == mStreetId) {
+                                callBackListener.onTitleChanged(SessionContext.getCommunityStreetList().get(i).catalogname);
+                                break;
+                            }
+                        }
+                    }
+
+                    requestStreetBanner(mStreetId);
+                    requestCommunityService(mStreetId);
+                    mSelectedId = mStreetId;
+                }
+            } else {
+                synchronized (MyAsyncTask.class) {
+                    new MyAsyncTask().setResponse(res).execute(req.flag);
+                }
             }
         }
     }
@@ -394,8 +474,12 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
 
     @Override
     public void onRefresh() {
-        requestHMBanner();
-        requestHMAllService();
+        if (mStreetId == -1 || SessionContext.getCommunityStreetList().size() == 0) {
+            requestCommunityStreetList();
+        } else {
+            requestStreetBanner(mStreetId);
+            requestCommunityService(mStreetId);
+        }
     }
 
     private class MyAsyncTask extends AsyncTask<Integer, Void, Void> {
@@ -412,14 +496,13 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
                 case BANNER_TOP: {
                     JSONObject mJson = JSON.parseObject(response.body.toString());
                     String mmJson = mJson.getString("datalist");
-                    LogUtil.d("dw", mmJson);
                     topBannerList = JSON.parseArray(mmJson, MainBannerBean.class);
                     mTag.put(BANNER_TOP, BANNER_TOP);
                     break;
                 }
-                case SERVICE_REQUEST: {
+                case COMMUNITY_SERVICE: {
                     parseCommuServer(response);
-                    mTag.put(SERVICE_REQUEST, SERVICE_REQUEST);
+                    mTag.put(COMMUNITY_SERVICE, COMMUNITY_SERVICE);
                     break;
                 }
                 default:
@@ -465,7 +548,7 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
             if (null == convertView) {
                 viewHolder = new ViewHolder();
@@ -479,25 +562,32 @@ public class TabCommunityFragment extends BaseFragment implements DataCallback, 
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            boolean flag = list.get(position).title.equals("人和");
-            if (flag) {
-                viewHolder.tv_status.setVisibility(View.GONE);
-                viewHolder.iv_choose.setVisibility(View.VISIBLE);
-                convertView.setEnabled(true);
-            } else {
+            boolean isSelected = list.get(position).id == mStreetId;
+            boolean isDeveloping = StringUtil.isEmpty(list.get(position).catalogurls);
+            if (isDeveloping) {
                 viewHolder.tv_status.setVisibility(View.VISIBLE);
-                viewHolder.iv_choose.setVisibility(View.GONE);
                 convertView.setEnabled(false);
+                viewHolder.iv_choose.setVisibility(View.GONE);
+            } else {
+                viewHolder.tv_status.setVisibility(View.GONE);
+                convertView.setEnabled(true);
+                if (isSelected) {
+                    viewHolder.iv_choose.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder.iv_choose.setVisibility(View.GONE);
+                }
             }
-            viewHolder.tv_title.setEnabled(flag);
-            viewHolder.tv_address.setEnabled(flag);
 
-            viewHolder.tv_title.setText(list.get(position).title);
-            viewHolder.tv_address.setText(list.get(position).address);
+            viewHolder.tv_title.setEnabled(!isDeveloping);
+            viewHolder.tv_address.setEnabled(!isDeveloping);
+            viewHolder.tv_title.setText(list.get(position).catalogname);
+            viewHolder.tv_address.setText(list.get(position).catalogdesc);
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mSelectedId = list.get(position).id;
+                    SharedPreferenceUtil.getInstance().setInt("streetId", mSelectedId);
                     popupWindow.dismiss();
                 }
             });

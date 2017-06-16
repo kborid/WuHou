@@ -185,6 +185,7 @@
 
     <!-- 标题颜色 -->
     <color name="main_color_wh">#ff1fa8ff</color>
+    <color name="darkMainColor">#FF1780C2</color>
     <color name="sec_color_wh">#801fa8ff</color>
     <color name="page_background">#fff0f0f0</color>
     <color name="title_bg_color">@color/main_color_wh</color>

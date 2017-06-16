@@ -12,45 +12,6 @@
         android:layout_height="match_parent"
         android:clipChildren="false">
 
-        <!--<android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
-            android:background="@color/main_color_wh"
-            android:gravity="center_vertical"
-            app:logo="@null"
-            app:title=" ">
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="测试标题"
-                android:textColor="@color/title_text_color"
-                android:textSize="@dimen/title_center_text_size" />
-
-            <ImageView
-                android:id="@+id/iv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/common_downpull_selector" />
-
-            <ImageView
-                android:id="@+id/iv_qr_code"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="right|center_vertical"
-                android:paddingRight="10dp"
-                android:src="@drawable/iv_qr" />
-
-        </android.support.v7.widget.Toolbar>-->
-
-        <!-- 底部导航栏 -->
-
         <LinearLayout
             android:id="@+id/layout_footer_main"
             android:layout_width="match_parent"
@@ -98,7 +59,7 @@
             </RadioGroup>
         </LinearLayout>
 
-        <android.support.v4.view.ViewPager
+        <com.yunfei.wh.ui.custom.CustomViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

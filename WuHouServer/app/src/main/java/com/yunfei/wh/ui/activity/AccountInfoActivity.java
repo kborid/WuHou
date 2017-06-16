@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.yunfei.wh.R;
+import com.yunfei.wh.common.NetURL;
 import com.yunfei.wh.common.SessionContext;
 import com.yunfei.wh.ui.base.BaseActivity;
 
@@ -65,7 +66,9 @@ public class AccountInfoActivity extends BaseActivity {
                 intent = new Intent(this, AccountSecurityActivity.class);
                 break;
             case R.id.tv_auth:
-                intent = new Intent(this, IdentityVerificationActivity.class);
+                intent = new Intent(this, HtmlActivity.class);
+                intent.putExtra("title", "实名认证");
+                intent.putExtra("path", NetURL.IDENTITY_VERIFICATE);
                 break;
             case R.id.tv_address:
                 intent = new Intent(this, AddressManageActivity.class);

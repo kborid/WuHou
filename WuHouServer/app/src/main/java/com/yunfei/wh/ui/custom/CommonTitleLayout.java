@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.prj.sdk.util.StringUtil;
 import com.prj.sdk.util.Utils;
 import com.umeng.analytics.MobclickAgent;
 import com.yunfei.wh.R;
@@ -30,6 +31,7 @@ public class CommonTitleLayout extends LinearLayout {
     private RelativeLayout qrCodeLay;
     private RelativeLayout titleLay;
     private TextView tv_title;
+//    private TextView tv_street;
     private ImageView iv_title;
     private RelativeLayout search_lay;
     private TextView tv_search;
@@ -56,32 +58,26 @@ public class CommonTitleLayout extends LinearLayout {
     }
 
     public CommonTitleLayout(Context context) {
-        super(context);
-        this.context = context;
-        init();
+        this(context, null);
     }
 
     public CommonTitleLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        this.context = context;
-        init();
+        this(context, attrs, 0);
     }
 
     public CommonTitleLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
-        init();
-    }
-
-    private void init() {
         LayoutInflater.from(context).inflate(R.layout.comm_main_title, this);
         findViews();
     }
+
 
     private void findViews() {
         rootView = (LinearLayout) findViewById(R.id.rootview);
         rootView.getBackground().mutate().setAlpha(0);
         tv_title = (TextView) findViewById(R.id.tv_title);
+//        tv_street = (TextView) findViewById(R.id.tv_street);
         iv_title = (ImageView) findViewById(R.id.iv_title);
         userInfoLay = (RelativeLayout) findViewById(R.id.userinfo_lay);
         qrCodeLay = (RelativeLayout) findViewById(R.id.code_lay);
@@ -116,5 +112,20 @@ public class CommonTitleLayout extends LinearLayout {
         rootView.getBackground().mutate().setAlpha(alphaValue);
         titleLay.setAlpha((float) (alphaValue < 150 ? 150 : alphaValue) / ALPHA_MAX);
         tv_search.getBackground().mutate().setAlpha(alphaValue < 150 ? 150 : alphaValue);
+    }
+
+//    public void setTitleSummary(String summary) {
+//        if (StringUtil.notEmpty(summary)) {
+//            tv_street.setVisibility(VISIBLE);
+//            tv_street.setText(summary);
+//        } else {
+//            tv_street.setVisibility(GONE);
+//        }
+//    }
+
+    public void setTitle(String title) {
+        if (StringUtil.notEmpty(title)) {
+            tv_title.setText(title);
+        }
     }
 }

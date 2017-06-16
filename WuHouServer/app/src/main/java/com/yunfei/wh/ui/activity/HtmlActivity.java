@@ -29,10 +29,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.prj.sdk.app.AppContext;
-import com.prj.sdk.net.bean.ResponseData;
-import com.prj.sdk.net.data.DataLoader;
 import com.prj.sdk.util.ActivityTack;
-import com.prj.sdk.util.DateUtil;
 import com.prj.sdk.util.LogUtil;
 import com.prj.sdk.util.SharedPreferenceUtil;
 import com.prj.sdk.util.Utils;
@@ -40,13 +37,13 @@ import com.prj.sdk.widget.CustomToast;
 import com.prj.sdk.widget.webview.ChooserFileController;
 import com.prj.sdk.widget.webview.WebChromeClientCompat;
 import com.umeng.socialize.sso.UMSsoHandler;
+import com.yunfei.wh.BuildConfig;
 import com.yunfei.wh.R;
 import com.yunfei.wh.broatcast.UnLoginBroadcastReceiver;
 import com.yunfei.wh.common.AppConst;
 import com.yunfei.wh.common.NetURL;
 import com.yunfei.wh.common.SessionContext;
 import com.yunfei.wh.control.ShareControl;
-import com.yunfei.wh.net.RequestBeanBuilder;
 import com.yunfei.wh.ui.JSBridge.RegisterHandler;
 import com.yunfei.wh.ui.JSBridge.WVJBWebViewClient;
 import com.yunfei.wh.ui.activity.LoginActivity.onCancelLoginListener;
@@ -254,8 +251,9 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
             String pkName = this.getPackageName();
             String versionName = this.getPackageManager().getPackageInfo(pkName, 0).versionName;
 //            sb.append(webSetting.getUserAgentString()).append(" Android/").append(pkName).append("/").append(versionName);// 名字+包名+版本号
-            sb.append(webSetting.getUserAgentString()).append(" Android/").append("wuhou").append("/").append(versionName);// 名字+wuhou+版本号
+            sb.append(webSetting.getUserAgentString()).append(" Android/").append(BuildConfig.FLAVOR).append("/").append(versionName);// 名字+wuhou+版本号
             webSetting.setUserAgentString(sb.toString());// 追加修改ua特征标识（名字+包名+版本号）使得web端正确判断
+            LogUtil.i(TAG, "WebView's UserAgent:"+webSetting.getUserAgentString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -266,7 +264,6 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
         }
         // URL = "file:///android_asset/index.html";
         mWebView.loadUrl(URL);
-        uploadData();
         // 增加接口方法,让html页面调用
         // addJSInterfaces();
     }
@@ -291,30 +288,6 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
             startActivity(intent);
         } else {
             this.finish();
-        }
-    }
-
-    /**
-     * 数据埋点
-     */
-    public void uploadData() {
-        try {
-            RequestBeanBuilder builder = RequestBeanBuilder.create(false);
-            if (SessionContext.isLogin()) {
-                builder.addBody("userid", SessionContext.mUser.USERBASIC.id);
-            } else {
-                builder.addBody("userid", "unlogin");
-            }
-            builder.addBody("nodeid", mID);
-            builder.addBody("accurls", URL);
-            builder.addBody("acctime", DateUtil.getCurDateStr("yyyy-MM-dd HH:mm:ss"));
-            builder.addBody("channel", "2");// 1：ios2：android3微信4支护宝；5web
-            builder.addBody("ipaddresses", Utils.getLocalIpAddress());
-            ResponseData data = builder.syncRequest(builder);
-            data.path = NetURL.NODE;
-            requestID = DataLoader.getInstance().loadData(null, data);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -353,7 +326,6 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
         @Override
         public void onPageFinished(WebView view, final String url) {
             super.onPageFinished(view, url);
-            System.out.println("onPageFinished() url = " + url);
             if (view.canGoBack()) {
                 tv_left_title_close.setVisibility(View.VISIBLE);
                 paddingValue = BACKWIDTH + CLOSEWIDTH;
@@ -373,7 +345,6 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
                     && !title.contains(".aspx")
                     && !title.contains(".do")) {
                 mTitle = title;
-                System.out.println("title = " + mTitle);
                 tv_center_title.setText(mTitle);// 点击后退，设置标题
             }
 
@@ -416,13 +387,11 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
             callHandler("addActionMethodsToNative", null, new WVJBResponseCallback() {
                 @Override
                 public void callback(Object data) {
-                    System.out.println("string = " + data.toString());
                     JSONArray jsonArray = JSON.parseArray(data.toString());
                     if (list != null && list.size() > 0) {
                         list.clear();
                     }
                     for (int i = 0; i < jsonArray.size(); i++) {
-                        System.out.println("json = " + jsonArray.get(i).toString());
                         JSONObject mmjson = (JSONObject) jsonArray.get(i);
                         ShareBeanInfo info = new ShareBeanInfo();
                         if (mmjson.containsKey("title")) {
@@ -640,7 +609,6 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
 
     @Override
     public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-        System.out.println("long press menu");
         return super.onKeyLongPress(keyCode, event);
     }
 }

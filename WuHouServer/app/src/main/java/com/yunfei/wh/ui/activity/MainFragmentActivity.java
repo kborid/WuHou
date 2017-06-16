@@ -1,19 +1,16 @@
 package com.yunfei.wh.ui.activity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.prj.sdk.app.AppContext;
 import com.prj.sdk.constants.Const;
 import com.prj.sdk.net.bean.ResponseData;
@@ -24,24 +21,21 @@ import com.prj.sdk.util.DateUtil;
 import com.prj.sdk.util.LogUtil;
 import com.prj.sdk.util.SharedPreferenceUtil;
 import com.prj.sdk.util.StringUtil;
-import com.prj.sdk.util.Utils;
 import com.prj.sdk.widget.CustomToast;
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.update.UmengUpdateAgent;
-import com.yunfei.wh.BuildConfig;
 import com.yunfei.wh.R;
 import com.yunfei.wh.codescan.control.CaptureActivity;
 import com.yunfei.wh.common.AppConst;
 import com.yunfei.wh.common.NetURL;
 import com.yunfei.wh.common.SessionContext;
 import com.yunfei.wh.control.BundleNavi;
-import com.yunfei.wh.control.StatusBarControl;
-import com.yunfei.wh.control.SystemBarTintManager;
 import com.yunfei.wh.control.UpdateControl;
 import com.yunfei.wh.net.RequestBeanBuilder;
+import com.yunfei.wh.net.bean.UserInfo;
 import com.yunfei.wh.ui.adapter.MainFragmentAdapter;
 import com.yunfei.wh.ui.base.BaseFragmentActivity;
 import com.yunfei.wh.ui.custom.CommonTitleLayout;
+import com.yunfei.wh.ui.custom.CustomViewPager;
 import com.yunfei.wh.ui.custom.UserCenterLayout;
 import com.yunfei.wh.ui.fragment.TabCommunityFragment;
 import com.yunfei.wh.ui.fragment.TabHomeFragment;
@@ -54,12 +48,12 @@ import java.util.List;
 public class MainFragmentActivity extends BaseFragmentActivity implements OnPageChangeListener, View.OnClickListener, DataCallback {
 
     private RadioGroup radioGroup;
-    private ViewPager viewPager;
+    private CustomViewPager viewPager;
     private long exitTime = 0;
     private CommonTitleLayout commonTitleLayout;
     private UserCenterLayout userCenterLayout;
     private DrawerLayout drawerLayout;
-    private SystemBarTintManager mTintManager = null;
+//    private SystemBarTintManager mTintManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +71,14 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
         userCenterLayout = (UserCenterLayout) findViewById(R.id.usercenterlayout);
         commonTitleLayout = (CommonTitleLayout) findViewById(R.id.commontitlelayout);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        if (radioGroup != null) {
+            radioGroup.setOnCheckedChangeListener(this);
+        }
+        viewPager = (CustomViewPager) findViewById(R.id.viewPager);
+        if (viewPager != null) {
+            viewPager.setPagingEnabled(false);
+            viewPager.addOnPageChangeListener(this);
+        }
     }
 
     @Override
@@ -89,6 +90,8 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
                 Date lastLoginDate = DateUtil.str2Date(lastLoginTime);
                 if (DateUtil.getGapCount(lastLoginDate, new Date(System.currentTimeMillis())) >= 6) {
                     loadValidateTicketExpire();
+                } else {
+                    requestUserInfo();
                 }
             } else {//如果没有值，则不是4.0.0版本，需要登录
                 Intent intent = new Intent(Const.UNLOGIN_ACTION);
@@ -99,19 +102,19 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
         initFragmentView();
 
         // android os 4.4及以上场合，可以设置status bar颜色
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            boolean flag = StatusBarControl.setTranslucentStatus(this, true);
-            if (flag) {
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                params.topMargin = Utils.mStatusBarHeight;
-                commonTitleLayout.setLayoutParams(params);
-                mTintManager = new SystemBarTintManager(this);
-                mTintManager.setStatusBarTintEnabled(true);
-                mTintManager.setStatusBarTintResource(R.color.main_color_wh);
-            }
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            boolean flag = StatusBarControl.setTranslucentStatus(this, true);
+//            if (flag) {
+//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//                params.topMargin = Utils.mStatusBarHeight;
+//                commonTitleLayout.setLayoutParams(params);
+//                mTintManager = new SystemBarTintManager(this);
+//                mTintManager.setStatusBarTintEnabled(true);
+//                mTintManager.setStatusBarTintResource(R.color.main_color_wh);
+//            }
+//        }
 
-        UmengUpdateAgent.update(this);// 友盟渠道版本更新
+//        UmengUpdateAgent.update(this);// 友盟渠道版本更新
         UpdateControl.getInstance().update();
     }
 
@@ -140,20 +143,17 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
      */
     private void initFragmentView() {
         List<Fragment> mList = new ArrayList<>();
-        mList.add(TabHomeFragment.newInstance("home", scrollChangeListener));
-        mList.add(TabServerCenterFragment.newInstance("server", scrollChangeListener));
-        mList.add(TabCommunityFragment.newInstance("community", scrollChangeListener));
-        viewPager.setOffscreenPageLimit(3);
+        mList.add(TabHomeFragment.newInstance("home", callBackListener));
+        mList.add(TabServerCenterFragment.newInstance("server", callBackListener));
+        mList.add(TabCommunityFragment.newInstance("community", callBackListener));
+        viewPager.setOffscreenPageLimit(mList.size());
         viewPager.setAdapter(new MainFragmentAdapter(getSupportFragmentManager(), mList));
         radioGroup.getChildAt(0).performClick();
-        setFragmentTitle(0);
     }
 
     @Override
     public void initListeners() {
         super.initListeners();
-        radioGroup.setOnCheckedChangeListener(this);
-        viewPager.addOnPageChangeListener(this);
         commonTitleLayout.setOnClickListeners(this);
         userCenterLayout.setOnClickListener(this);
     }
@@ -161,7 +161,8 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
     /**
      * 加载验证票据是否失效
      */
-    public void loadValidateTicketExpire() {
+    private void loadValidateTicketExpire() {
+        System.out.println("loadValidateTicketExpire()");
         RequestBeanBuilder builder = RequestBeanBuilder.create(true);
 
         ResponseData data = builder.syncRequest(builder);
@@ -170,17 +171,29 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
         DataLoader.getInstance().loadData(this, data);
     }
 
+    private void requestUserInfo() {
+        RequestBeanBuilder builder = RequestBeanBuilder.create(true);
+
+        ResponseData data = builder.syncRequest(builder);
+        data.path = NetURL.GET_USER_INFO;
+        data.flag = 2;
+        DataLoader.getInstance().loadData(this, data);
+    }
+
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         try {
             switch (checkedId) {
                 case R.id.qu_btn_home:
+                    commonTitleLayout.relizeTitleLayout("", false, true);
                     viewPager.setCurrentItem(0, false);
                     break;
                 case R.id.qu_btn_servercenter:
+                    commonTitleLayout.relizeTitleLayout("", false, true);
                     viewPager.setCurrentItem(1, false);
                     break;
                 case R.id.qu_btn_community:
+                    commonTitleLayout.relizeTitleLayout("", true, false);
                     viewPager.setCurrentItem(2, false);
                     break;
                 default:
@@ -234,29 +247,8 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
     public void onPageSelected(int arg0) {
         try {
             radioGroup.getChildAt(arg0).performClick();
-            setFragmentTitle(arg0);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private void setFragmentTitle(int index) {
-        switch (index) {
-            case 0:
-                commonTitleLayout.relizeTitleLayout(/*getString(R.string.homepage_title)*/"", false, true);
-                break;
-            case 1:
-                commonTitleLayout.relizeTitleLayout(/*getString(R.string.server_title)*/"", false, true);
-                break;
-            case 2:
-                if (BuildConfig.FLAVOR.equals("liangjiang")) {
-                    commonTitleLayout.relizeTitleLayout(getString(R.string.commu_title), true, false);
-                } else {
-                    commonTitleLayout.relizeTitleLayout("", false, true);
-                }
-                break;
-            default:
-                break;
         }
     }
 
@@ -264,14 +256,14 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
         commonTitleLayout.setBackgroundAlpha(scroll);
     }
 
-    public void setStatusBarBackgroundAlpha(int scroll) {
-        if (mTintManager != null) {
-            int alphaValue;
-            int height = Utils.dip2px(216 - 56) - Utils.mStatusBarHeight;
-            alphaValue = scroll < height ? (int) ((float) scroll / height * 255) : 255;
-            mTintManager.setStatusBarAlpha(alphaValue);
-        }
-    }
+//    public void setStatusBarBackgroundAlpha(int scroll) {
+//        if (mTintManager != null) {
+//            int alphaValue;
+//            int height = Utils.dip2px(216 - 56) - Utils.mStatusBarHeight;
+//            alphaValue = scroll < height ? (int) ((float) scroll / height * 255) : 255;
+//            mTintManager.setStatusBarAlpha(alphaValue);
+//        }
+//    }
 
     @Override
     public void preExecute(ResponseData request) {
@@ -279,6 +271,19 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
 
     @Override
     public void notifyMessage(ResponseData request, ResponseData response) throws Exception {
+        if (response != null && response.body != null) {
+            if (request.flag == 2) {
+                System.out.println("json = " + response.body.toString());
+                SessionContext.mUser = JSON.parseObject(response.body.toString(), UserInfo.class);
+                if (StringUtil.isEmpty(SessionContext.mUser) || StringUtil.isEmpty(SessionContext.mUser.USERBASIC)) {
+                    CustomToast.show("获取用户信息失败，请重试", 0);
+                    return;
+                }
+                SharedPreferenceUtil.getInstance().setString(AppConst.USER_PHOTO_URL, SessionContext.mUser.USERBASIC != null ? SessionContext.mUser.USERBASIC.getPhotoUrl() : "", false);
+                SharedPreferenceUtil.getInstance().setString(AppConst.USER_INFO, response.body.toString(), true);
+                AppContext.mAppContext.sendBroadcast(new Intent(Const.UPDATE_USERINFO));
+            }
+        }
     }
 
     @Override
@@ -317,15 +322,22 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
         popupListener = listener;
     }
 
-    public interface OnScrollChangeListener {
-        void onScroll(int scrollvalue);
-    }
-
-    private OnScrollChangeListener scrollChangeListener = new OnScrollChangeListener() {
+    private OnCallBackListener callBackListener = new OnCallBackListener() {
         @Override
         public void onScroll(int scrollvalue) {
-            setStatusBarBackgroundAlpha(scrollvalue);
+//            setStatusBarBackgroundAlpha(scrollvalue);
             setTitleBackgroundAlpha(scrollvalue);
         }
+
+        @Override
+        public void onTitleChanged(String title) {
+            commonTitleLayout.setTitle(title);
+        }
     };
+
+    public interface OnCallBackListener {
+        void onTitleChanged(String title);
+
+        void onScroll(int scrollvalue);
+    }
 }

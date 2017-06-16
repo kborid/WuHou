@@ -20,7 +20,7 @@
     <string name="suc_present">提交成功</string>
     <string name="radio_home">首页</string>
     <string name="radio_server">客服</string>
-    <string name="radio_servercenter">办事大厅</string>
+    <string name="radio_servercenter">服务大厅</string>
     <string name="radio_community">社区</string>
     <string name="radio_discovery">发现</string>
     <string name="radio_my">我的</string>
@@ -70,7 +70,6 @@
 
     <!--首页-->
     <string name="homepage_title">在两江</string>
-
     <!--社区-->
     <string name="commu_title">天湖美镇</string>
     <string name="commu_introduction">社区介绍</string>

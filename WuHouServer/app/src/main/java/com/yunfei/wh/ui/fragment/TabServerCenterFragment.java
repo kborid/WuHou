@@ -70,7 +70,7 @@ public class TabServerCenterFragment extends BaseFragment implements DataCallbac
     private TextView tv_title, tv_summary;
     private LinearLayout tab_lay;
     private LinearLayout server_lay;
-    private static MainFragmentActivity.OnScrollChangeListener scrollChangeListener = null;
+    private static MainFragmentActivity.OnCallBackListener callBackListener = null;
     private static boolean isFirstLoad = false;
     private Map<Integer, Integer> mTag = new HashMap<>();
     private ArrayList<AppListBean> tabList = new ArrayList<>();
@@ -112,8 +112,8 @@ public class TabServerCenterFragment extends BaseFragment implements DataCallbac
         super.onVisible();
         MainFragmentActivity.setOnPopUpShowListener(null);
 
-        if (scrollChangeListener != null) {
-            scrollChangeListener.onScroll(scrollValue);
+        if (callBackListener != null) {
+            callBackListener.onScroll(scrollValue);
         }
         banner.startBanner();
         if (isFirstLoad) {
@@ -134,8 +134,8 @@ public class TabServerCenterFragment extends BaseFragment implements DataCallbac
         }
     }
 
-    public static Fragment newInstance(String key, MainFragmentActivity.OnScrollChangeListener scrollChangeListener) {
-        TabServerCenterFragment.scrollChangeListener = scrollChangeListener;
+    public static Fragment newInstance(String key, MainFragmentActivity.OnCallBackListener callBackListener) {
+        TabServerCenterFragment.callBackListener = callBackListener;
         Fragment fragment = new TabServerCenterFragment();
         Bundle bundle = new Bundle();
         bundle.putString("key", key);
@@ -292,8 +292,8 @@ public class TabServerCenterFragment extends BaseFragment implements DataCallbac
             @Override
             public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
                 scrollValue = y;
-                if (scrollChangeListener != null) {
-                    scrollChangeListener.onScroll(scrollValue);
+                if (callBackListener != null) {
+                    callBackListener.onScroll(scrollValue);
                 }
             }
         });

@@ -82,6 +82,7 @@ public class ImageScaleActivity extends BaseActivity implements OnPageChangeList
                         }
                     }
                 }, url, url, 1600, 900, -1);
+                mVPAdapter.notifyDataSetChanged();
             }
             initTopIndicator();
             updateTopGalleryItem(mSelection);

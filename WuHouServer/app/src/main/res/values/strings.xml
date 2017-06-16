@@ -21,7 +21,7 @@
     <string name="radio_home">首页</string>
     <string name="radio_server">客服</string>
     <string name="radio_servercenter">办事大厅</string>
-    <string name="radio_community">社区</string>
+    <string name="radio_community">街道</string>
     <string name="radio_discovery">发现</string>
     <string name="radio_my">我的</string>
     <string name="dialog_tip_net_error">网络连接失败，请检查网络</string>

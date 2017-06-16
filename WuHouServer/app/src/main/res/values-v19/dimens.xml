@@ -12,7 +12,7 @@
     <dimen name="index_text_size">14sp</dimen>
 
     <!-- 标题配置 -->
-    <dimen name="titleHeight">55dp</dimen>
+    <dimen name="titleHeight">80dp</dimen>
     <dimen name="title_height">55dp</dimen>
 
     <!-- listview item 高度 -->

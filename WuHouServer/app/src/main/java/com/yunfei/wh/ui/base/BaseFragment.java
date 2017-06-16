@@ -10,13 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.dc.statistic.StatisticProxy;
 import com.prj.sdk.net.image.ImageLoader;
 import com.prj.sdk.util.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.yunfei.wh.R;
-import com.yunfei.wh.common.SessionContext;
-import com.yunfei.wh.control.UpdateControl;
 import com.yunfei.wh.ui.dialog.ProgressDialog;
 
 /**
@@ -106,14 +103,14 @@ public abstract class BaseFragment extends Fragment {
                 onVisible();
                 MobclickAgent.onPageStart(this.getClass().getName());
                 // 平台埋点
-                String tt = getClass().getSimpleName();
-                String userId = "";
-                if (SessionContext.isLogin()) {
-                    userId = SessionContext.mUser.USERBASIC.id;
-                }
-                StatisticProxy.getInstance().onPageViews(getActivity(), "m99", SessionContext.getAreaInfo(1), UpdateControl.getInstance().getCurVersionName(), "", userId, tt, tt, System.currentTimeMillis());
-
-                LogUtil.d(tt, " - display - " + (isHappenedInSetUserVisibleHintMethod ? "setUserVisibleHint" : "onResume"));
+//                String tt = getClass().getSimpleName();
+//                String userId = "";
+//                if (SessionContext.isLogin()) {
+//                    userId = SessionContext.mUser.USERBASIC.id;
+//                }
+//                StatisticProxy.getInstance().onPageViews(getActivity(), "m99", SessionContext.getAreaInfo(1), UpdateControl.getInstance().getCurVersionName(), "", userId, tt, tt, System.currentTimeMillis());
+//
+//                LogUtil.d(tt, " - display - " + (isHappenedInSetUserVisibleHintMethod ? "setUserVisibleHint" : "onResume"));
             } else {
                 isVisible = false;
                 onInvisible();

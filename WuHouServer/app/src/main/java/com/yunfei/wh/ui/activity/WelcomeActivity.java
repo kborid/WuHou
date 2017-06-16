@@ -2,8 +2,6 @@ package com.yunfei.wh.ui.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -16,8 +14,6 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.dc.statistic.StatisticProxy;
-import com.dc.statistic.bean.InitParameter;
 import com.prj.sdk.app.AppContext;
 import com.prj.sdk.net.bean.ResponseData;
 import com.prj.sdk.net.data.DataCallback;
@@ -41,6 +37,7 @@ import com.yunfei.wh.control.UpdateControl;
 import com.yunfei.wh.net.RequestBeanBuilder;
 import com.yunfei.wh.net.bean.AdvertisementBean;
 import com.yunfei.wh.net.bean.AppInfoBean;
+import com.yunfei.wh.net.bean.CommuInfoBean;
 import com.yunfei.wh.net.bean.DiscoveryChannelBean;
 import com.yunfei.wh.ui.base.BaseActivity;
 import com.yunfei.wh.ui.dialog.CustomDialog;
@@ -74,7 +71,7 @@ public class WelcomeActivity extends BaseActivity implements DataCallback {
         initViews();
         initParams();
         initListeners();
-        initStatistical();
+//        initStatistical();
     }
 
     @Override
@@ -87,6 +84,16 @@ public class WelcomeActivity extends BaseActivity implements DataCallback {
     protected void onPause() {
         super.onPause();
         JPushInterface.onPause(this);// 用于“用户使用时长”，“活跃用户”，“用户打开次数”的统计，并上报到服务器，在 Portal 上展示给开发者
+    }
+
+    private void requestCommunityStreetList() {
+        RequestBeanBuilder b = RequestBeanBuilder.create(false);
+
+        ResponseData d = b.syncRequest(b);
+        d.path = NetURL.COMMUNITY_LIST;
+        d.flag = 0;
+
+        requestID = DataLoader.getInstance().loadData(this, d);
     }
 
     @Override
@@ -112,6 +119,7 @@ public class WelcomeActivity extends BaseActivity implements DataCallback {
         loadCacheData();
         loadAd();
         loadDiscoverChannel();
+        requestCommunityStreetList();
     }
 
     /**
@@ -309,7 +317,14 @@ public class WelcomeActivity extends BaseActivity implements DataCallback {
 
     @Override
     public void notifyMessage(ResponseData request, ResponseData response) throws Exception {
-        if (request.flag == 1) {
+        if (request.flag == 0) {
+            JSONObject mJson = JSON.parseObject(response.body.toString());
+            if (mJson.containsKey("list_catalog")) {
+                String mmJson = mJson.getString("list_catalog");
+                List<CommuInfoBean> temp = JSON.parseArray(mmJson, CommuInfoBean.class);
+                SessionContext.setCommunityStreetList(temp);
+            }
+        }else if (request.flag == 1) {
             AppInfoBean mAppInfo = JSON.parseObject(response.body.toString(), AppInfoBean.class);
             LogUtil.d("dw", "AppInfo json[" + response.body.toString() + "]");
             String currentVersion = UpdateControl.getInstance().getCurVersionName();
@@ -401,37 +416,37 @@ public class WelcomeActivity extends BaseActivity implements DataCallback {
     /**
      * 初始化北京平台埋点
      */
-    private void initStatistical() {
-        try {
-            PackageManager manager = this.getPackageManager();
-            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
-            String version = info.versionName;
-            String cityId = SessionContext.getAreaInfo(1);
-
-            InitParameter param = new InitParameter();
-            param.setUrl("http://uas.scity.cn/analy/upload");// http://uas.scity.com/analy/upload
-            param.setDl("AndroidServer");// 预先在后台定义的下载渠道
-            // String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/dcStatistic/" + getPackageName();
-            param.setLogDirPath(Utils.getFolderDir("dcStatistic"));// 离线日志存储目录
-            param.setMfv(version);// 主框架版本
-            param.setStaAppkey("lctz" + SessionContext.getAreaInfo(1));// 平台埋点key
-
-            StatisticProxy.init(AppContext.mAppContext, param);
-            StatisticProxy.getInstance().enableRealTimeUpload(true);// 开启/关闭实时上传功能
-            StatisticProxy.getInstance().setLog(true);// 开启或关闭日志功能
-
-            boolean isFirst = SharedPreferenceUtil.getInstance().getBoolean("dc_smart_city_statistical_first", true);
-            LogUtil.d("dw", "StatisticProxy's sharepreference is " + isFirst);
-            if (isFirst) {
-                StatisticProxy.getInstance().onFirst(this, "first-categoryId", cityId);// 发送首次访问分析事件，应用在首次启动时调用。
-                SharedPreferenceUtil.getInstance().setBoolean("dc_smart_city_statistical_first", false);
-            } else {
-                StatisticProxy.getInstance().onLaunch(this, "launch-categoryId", cityId);// 发送除首次外应用启动的访问分析事件，在每次（除首次）应用启动时调用
-            }
-
-            StatisticProxy.getInstance().postClientFileDatas();// 上传统计分析日志，在系统需要上传本地统计分析日志时调用。
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private void initStatistical() {
+//        try {
+//            PackageManager manager = this.getPackageManager();
+//            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+//            String version = info.versionName;
+//            String cityId = SessionContext.getAreaInfo(1);
+//
+//            InitParameter param = new InitParameter();
+//            param.setUrl("http://uas.scity.cn/analy/upload");// http://uas.scity.com/analy/upload
+//            param.setDl("AndroidServer");// 预先在后台定义的下载渠道
+//            // String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/dcStatistic/" + getPackageName();
+//            param.setLogDirPath(Utils.getFolderDir("dcStatistic"));// 离线日志存储目录
+//            param.setMfv(version);// 主框架版本
+//            param.setStaAppkey("lctz" + SessionContext.getAreaInfo(1));// 平台埋点key
+//
+//            StatisticProxy.init(AppContext.mAppContext, param);
+//            StatisticProxy.getInstance().enableRealTimeUpload(true);// 开启/关闭实时上传功能
+//            StatisticProxy.getInstance().setLog(true);// 开启或关闭日志功能
+//
+//            boolean isFirst = SharedPreferenceUtil.getInstance().getBoolean("dc_smart_city_statistical_first", true);
+//            LogUtil.d("dw", "StatisticProxy's sharepreference is " + isFirst);
+//            if (isFirst) {
+//                StatisticProxy.getInstance().onFirst(this, "first-categoryId", cityId);// 发送首次访问分析事件，应用在首次启动时调用。
+//                SharedPreferenceUtil.getInstance().setBoolean("dc_smart_city_statistical_first", false);
+//            } else {
+//                StatisticProxy.getInstance().onLaunch(this, "launch-categoryId", cityId);// 发送除首次外应用启动的访问分析事件，在每次（除首次）应用启动时调用
+//            }
+//
+//            StatisticProxy.getInstance().postClientFileDatas();// 上传统计分析日志，在系统需要上传本地统计分析日志时调用。
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

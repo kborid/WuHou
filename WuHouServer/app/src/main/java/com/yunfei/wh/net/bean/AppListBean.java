@@ -45,5 +45,6 @@ public class AppListBean {
 	public String	appname;		// 应用名称
 	public String	appurls;		// 应用路径
 	public String	imgurls;		// 应用img
+	public String	appdesc;		// 应用描述
 
 }

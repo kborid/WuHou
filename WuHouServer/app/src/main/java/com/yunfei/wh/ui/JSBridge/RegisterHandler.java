@@ -7,6 +7,7 @@ import com.yunfei.wh.ui.JSBridge.functions.getCityInfo;
 import com.yunfei.wh.ui.JSBridge.functions.getDeviceId;
 import com.yunfei.wh.ui.JSBridge.functions.getPhone;
 import com.yunfei.wh.ui.JSBridge.functions.getPicturesUpload;
+import com.yunfei.wh.ui.JSBridge.functions.getStreetID;
 import com.yunfei.wh.ui.JSBridge.functions.getUserId;
 import com.yunfei.wh.ui.JSBridge.functions.getUserTicket;
 import com.yunfei.wh.ui.JSBridge.functions.handleError;
@@ -56,5 +57,6 @@ public class RegisterHandler {
         mWVJBWebViewClient.registerHandler("payOrder", new payOrder(mContext));
         mWVJBWebViewClient.registerHandler("customerService", new customerService(mContext));
         mWVJBWebViewClient.registerHandler("showNativeMap", new showNativeMap(mContext));
+        mWVJBWebViewClient.registerHandler("getStreetID", new getStreetID());
     }
 }

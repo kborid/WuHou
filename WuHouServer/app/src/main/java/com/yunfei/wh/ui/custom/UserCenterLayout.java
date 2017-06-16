@@ -131,6 +131,8 @@ public class UserCenterLayout extends RelativeLayout implements View.OnClickList
             tv_userid.setVisibility(GONE);
             if (BuildConfig.FLAVOR.equals("liangjiang")) {
                 lay_login_detail.setVisibility(GONE);
+            } else if (BuildConfig.FLAVOR.equals("wuhou")) {
+                lay_login_detail.setVisibility(VISIBLE);
             }
             lay_login_detail2.setVisibility(VISIBLE);
             lay_unlogin_note.setVisibility(GONE);
@@ -138,7 +140,6 @@ public class UserCenterLayout extends RelativeLayout implements View.OnClickList
             tv_username.setText(StringUtil.isEmpty(SessionContext.mUser.USERBASIC.nickname) ? SessionContext.mUser.USERBASIC.username : SessionContext.mUser.USERBASIC.nickname);
             tv_userid.setText(SessionContext.mUser.USERBASIC.id);
             final String url = SessionContext.mUser.USERBASIC.getPhotoUrl();
-            LogUtil.d("dw", "User Photo's old URL = " + photoUrl);
             AppContext.mMainHandler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -147,7 +148,6 @@ public class UserCenterLayout extends RelativeLayout implements View.OnClickList
                             iv_photo.setImageBitmap(ImageLoader.getInstance().getCacheBitmap(photoUrl));
                         } else {
                             photoUrl = url;
-                            LogUtil.d("dw", "User Photo's new URL = " + photoUrl);
                             if (photoUrl != null && photoUrl.length() > 0) {
                                 ImageLoader.getInstance().loadBitmap(new ImageLoader.ImageCallback() {
                                     @Override

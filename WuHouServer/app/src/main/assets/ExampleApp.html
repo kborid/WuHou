@@ -134,6 +134,18 @@
                                                       log('getDeviceId', response);
                                                       })
                                    }
+
+                                   var getStreetIDButton = document.getElementById('buttons').appendChild(document.createElement('button'))
+                                   getStreetIDButton.innerHTML = 'getStreetID'
+                                   getStreetIDButton.onclick = function(e) {
+                                   e.preventDefault()
+                                   bridge.callHandler('getStreetID',
+                                                      null,
+                                                      function(response) {
+                                                      alert(response);
+                                                      log('getStreetID', response);
+                                                      })
+                                   }
                                    
                                    var showException = document.getElementById('buttons').appendChild(document.createElement('button'))
                                    showException.innerHTML = 'showException'

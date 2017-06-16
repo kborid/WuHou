@@ -164,13 +164,10 @@ public class SchoolMapDetailActivity extends BaseActivity implements DataCallbac
         if (bean.piclist != null && bean.piclist.size() > 0) {
             picList.addAll(bean.piclist);
             for (int i = 0; i < picList.size(); i++) {
-                System.out.println("url = " + picList.get(i));
             }
         } else {
             picList.add(NetURL.API_LINK + bean.imgurl);
-            System.out.println("url = " + bean.imgurl);
         }
-        System.out.println("size = " + picList.size());
         banner.setImageResource(picList);
         tv_school_name.setText(bean.name);
         tv_school_phone.setText(bean.tel);

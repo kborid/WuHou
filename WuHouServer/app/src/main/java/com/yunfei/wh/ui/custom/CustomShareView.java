@@ -125,12 +125,10 @@ public class CustomShareView extends LinearLayout implements View.OnClickListene
                 TextView textView = (TextView) v.findViewById(R.id.tv_title);
                 //TODO set image
                 textView.setText(list.get(i).title);
-                System.out.println("CustomShareView title = " + list.get(i).title);
                 final int finalI = i;
                 v.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        System.out.println("add view onclick");
                         if (listener != null) {
                             listener.action(finalI);
                         }

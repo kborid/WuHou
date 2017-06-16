@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/viewPager"
+    android:id="@+id/rootview"
     android:layout_height="216dp"><!--android:background="#ffa9a9a9"-->
 
     <android.support.v4.view.ViewPager

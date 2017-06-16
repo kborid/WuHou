@@ -1,7 +1,9 @@
 package com.yunfei.wh.ui.base;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.prj.sdk.util.ActivityTack;
@@ -37,6 +39,12 @@ public abstract class BaseFragmentActivity extends AppCompatActivity implements 
     }
 
     public void initViews() {
+        //透明状态栏
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
     }
 
     public void dealIntent() {

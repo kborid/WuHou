@@ -48,7 +48,6 @@ public final class NetURL {
 	public static final String		IS_SC					= APP_SCITY_CN + "/center_appservice/service/CW0210";					// 校验是否收藏
 	public static final String		ADD_SC					= APP_SCITY_CN + "/center_appservice/service/CW0203";					// 添加收藏
 	public static final String		REMOVE_SC				= APP_SCITY_CN + "/center_appservice/service/CW0204";					// 取消收藏
-	public static final String		NODE					= WH_PORTAL_SERVICE + "CW1009";											// 埋点
 
     //---------------------------------用户信息、ticket相关-----------------------------------------
     public static final String		CHECK_PHONE				= WH_PORTAL_SERVICE + "CW9002";// 手机号是否被占用
@@ -81,6 +80,8 @@ public final class NetURL {
     // --------------------------------------社区-----------------------------------------------
     public static final String      HM_BANNER               = HM_PROTAL_SERVICE + "CW1006";
     public static final String      ALL_HM_SERVER           = HM_PROTAL_SERVICE + "CW1012";
+    public static final String      COMMUNITY_LIST          = HM_PROTAL_SERVICE + "CW1050";
+    public static final String      COMMUNITY_SERVICE       = HM_PROTAL_SERVICE + "CW1051";
 	// --------------------------------------发现-----------------------------------------------
 	public static final String      DIS_CHANNEL             = WH_PORTAL_SERVICE + "CW6001";
 	public static final String      DIS_CHANNELS_ID         = WH_PORTAL_SERVICE + "CW6002";
@@ -117,6 +118,7 @@ public final class NetURL {
 	public static final String		REGISTER_AGEMENNT		= WH_PORTAL_PUBLIC + "content/h5/ContentTable_index.jsp?type=zcxy";// 注册协议
 	public static final String		IDENTITY_PROTOCOL		= WH_PORTAL_PUBLIC + "content/h5/ContentTable_index.jsp?type=smrz";// 实名认证协议
     public static final String      SERVER_CENTER           = WH_PORTAL_PUBLIC + "h5/whsq/dtgg.jsp";
+    public static final String      IDENTITY_VERIFICATE     = "http://www.cdwh.org/ht/ident/html/index.html";
 
 	// -------------------------------------------app信息（强制升级、邀请信息等）、广告---------------------------------
 	public static final String		APP_INFO				= WH_PORTAL_SERVICE + "CW1010";// app基本信息

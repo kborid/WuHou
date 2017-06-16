@@ -69,7 +69,6 @@ public class MyQRCodeActivity extends BaseActivity {
 
                 StringBuilder sbUrl = new StringBuilder();
                 sbUrl.append("http://qr.liantu.com/api.php?text=").append(url).append("&m=10");
-                System.out.println("sburl = " + sbUrl);
                 ImageLoader.getInstance().loadBitmap(new ImageCallback() {
                     @Override
                     public void imageCallback(Bitmap bm, String url, String imageTag) {

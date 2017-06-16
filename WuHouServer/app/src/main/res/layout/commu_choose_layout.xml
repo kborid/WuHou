@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@drawable/line_message"
+        android:headerDividersEnabled="true"
+        android:footerDividersEnabled="true"
         android:dividerHeight="0.5dp"
         android:listSelector="@color/transparent"
         android:scrollbarThumbVertical="@drawable/p3016_scrollbar" />

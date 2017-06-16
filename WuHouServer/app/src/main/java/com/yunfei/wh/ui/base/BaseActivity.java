@@ -9,13 +9,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.dc.statistic.StatisticProxy;
 import com.prj.sdk.util.ActivityTack;
 import com.prj.sdk.util.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.yunfei.wh.R;
-import com.yunfei.wh.common.SessionContext;
-import com.yunfei.wh.control.UpdateControl;
 import com.yunfei.wh.ui.dialog.ProgressDialog;
 
 /**
@@ -46,12 +43,12 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
             MobclickAgent.onPageStart(this.getClass().getName()); // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
             MobclickAgent.onResume(this); // 统计时长
             // 平台埋点
-            String tt = getClass().getSimpleName();
-            String userId = "";
-            if (SessionContext.isLogin()) {
-                userId = SessionContext.mUser.USERBASIC.id;
-            }
-            StatisticProxy.getInstance().onPageViews(this, "m99", SessionContext.getAreaInfo(1), UpdateControl.getInstance().getCurVersionName(), "", userId, tt, tt, System.currentTimeMillis());
+//            String tt = getClass().getSimpleName();
+//            String userId = "";
+//            if (SessionContext.isLogin()) {
+//                userId = SessionContext.mUser.USERBASIC.id;
+//            }
+//            StatisticProxy.getInstance().onPageViews(this, "m99", SessionContext.getAreaInfo(1), UpdateControl.getInstance().getCurVersionName(), "", userId, tt, tt, System.currentTimeMillis());
         } catch (Exception e) {
             e.printStackTrace();
         }
