@@ -30,7 +30,7 @@ import java.util.Collections;
  *
  * @author LiaoBo
  */
-public class PRJAppplcation extends Application {
+public class PRJApplication extends Application {
     UnLoginBroadcastReceiver mReceiver = new UnLoginBroadcastReceiver();
     WifiStatusBroadcastReceiver wifiReceiver = new WifiStatusBroadcastReceiver();
 

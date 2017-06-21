@@ -17,13 +17,13 @@ model {
         create("signConfig") {
             keyAlias "wh0102"
             keyPassword "wh0102"
-            storeFile "D:/cdwh/00Developing/02Code/trunk/app/Android/WuHouServer/app/src/wuhou/a7dfc32cdf8f679ead9db3f1042762.keystore"
+            storeFile "./src/wuhou/a7dfc32cdf8f679ead9db3f1042762.keystore"
             storePassword "wh0102"
         }
         create("LiangJiangSignConfig") {
             keyAlias "z012v4"
             keyPassword "z012v4single"
-            storeFile "D:/cdwh/00Developing/02Code/trunk/app/Android/WuHouServer/app/src/liangjiang/z012v4_single.keystore"
+            storeFile "./src/liangjiang/z012v4_single.keystore"
             storePassword "z012v4single"
         }
     }
