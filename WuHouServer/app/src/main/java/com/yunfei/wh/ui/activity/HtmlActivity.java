@@ -558,6 +558,7 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
         if (null == popupWindow) {
             popupWindow = new PopupWindow(customShareView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         }
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         popupWindow.setAnimationStyle(R.style.share_anmi);
         popupWindow.setBackgroundDrawable(new ColorDrawable(0));
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -572,9 +573,9 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
         params.alpha = 0.8f;
         getWindow().setAttributes(params);
         int value = 0;
-        if (Utils.hasNavBar()) {
-            value = Utils.mNavigationBarHeight;
-        }
+//        if (Utils.hasNavBar()) {
+//            value = Utils.mNavigationBarHeight;
+//        }
         popupWindow.showAtLocation(btn_menu, Gravity.BOTTOM, 0, value);
     }
 
@@ -586,7 +587,7 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
                 public void run() {
                     popupWindow.dismiss();
                 }
-            }, 350);
+            }, 250);
         }
 
         @Override
