@@ -25,7 +25,7 @@
     <string name="areaName">武侯</string>
     <string name="siteId">510100</string>//成都siteId
     <string name="cityId">CN101270101</string>
-    <string name="uat_server_url">http://uat.zaichengdu.com/</string>
+    <string name="uat_server_url">http://uat.cdwh.org:7878/</string>
     <string name="release_server_url">http://cdwh.org/</string>
     <string name="comm_server_url">http://www.cdwh.org/</string>
     <string name="portal">wh_portal/</string>
