@@ -1,5 +1,7 @@
 package com.prj.sdk.util;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.util.Log;
 
 /**
@@ -10,10 +12,16 @@ import android.util.Log;
 public class LogUtil {
 
     private static long startTime = 0;
-    private static final boolean DEBUG = true;
+    private static Boolean DEBUG = null;
 
     public static boolean isDebug() {
-        return DEBUG;
+        return DEBUG == null ? false : DEBUG.booleanValue();
+    }
+
+    public static void syncIsDebug(Context context) {
+        if (DEBUG == null) {
+            DEBUG = context.getApplicationInfo() != null && (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        }
     }
 
     // 冗余信息输出

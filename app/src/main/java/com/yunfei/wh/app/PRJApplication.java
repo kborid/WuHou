@@ -14,7 +14,6 @@ import com.prj.sdk.net.data.DataLoader;
 import com.prj.sdk.util.ActivityTack;
 import com.prj.sdk.util.LogUtil;
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.update.UmengUpdateAgent;
 import com.yunfei.wh.R;
 import com.yunfei.wh.broatcast.UnLoginBroadcastReceiver;
 import com.yunfei.wh.broatcast.WifiStatusBroadcastReceiver;
@@ -37,6 +36,7 @@ public class PRJApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        LogUtil.syncIsDebug(getApplicationContext());
         AppContext.init(this);
         CrashHandler.getInstance().init(this);
         MobclickAgent.setDebugMode(false);// 普通测试流程，打开调试模式
