@@ -2,7 +2,7 @@
 <resources>
 
     <!--app scheme-->
-    <string name="app_scheme">DCwuhou</string>
+    <string name="app_scheme">dcwuhou</string>
     <!--Easy AR AppKey-->
     <string name="EasyARAppKey">UGOhAg3JFpeFWrZaBY2SwSiyi8T3g2jn8JHjTpZBo5QdOiVe6fXrhPFRnRsrKMHHtQ2d1UE5WqM2FZsZTOvbx34t1jIf1UCzSyIq779b4d75e5276c781af9826027e99ecdKXuV1KBUEM2VZb9ANQqgpfwWmhV9MrGkXPQnkdqp5yfanBUxJdBsjfapyzFvxWT9ZUsB</string>
     <!--美洽 AppKey-->
@@ -37,4 +37,8 @@
     <string name="businessType_bindPhone">37555</string>
     <string name="businessType_findPwd">35548</string>
     <string name="businessType_loginYZM">127508</string>
+
+    <!--芝麻信用-->
+    <string name="ZMXY_host">Alipay</string>
+    <string name="ZMXY_prefix">/ZMXY</string>
 </resources>

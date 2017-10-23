@@ -64,7 +64,17 @@
         <activity
             android:name=".ui.activity.HtmlActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <!-- 芝麻信用 -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/app_scheme"
+                    android:host="@string/ZMXY_host"
+                    android:pathPrefix="@string/ZMXY_prefix"/>
+            </intent-filter>
+        </activity>
         <!-- 用户引导页 -->
         <activity
             android:name=".ui.activity.UserGuideActivity"

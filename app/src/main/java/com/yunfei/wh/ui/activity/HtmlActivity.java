@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -218,6 +219,20 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
         }
         if (getIntent().getExtras() != null && getIntent().getExtras().getString("id") != null) {
             mID = getIntent().getExtras().getString("id");
+        }
+
+        Intent intent = getIntent();
+        Uri uri =intent.getData();
+        if (uri != null) {
+            String path = uri.getPath();
+            if (!TextUtils.isEmpty(path)) {
+                if (path.startsWith("/ZMXY/")) {
+                    path = path.replace("/ZMXY/", "");
+                    if (path.startsWith("http")) {
+                        mWebView.loadUrl(path);
+                    }
+                }
+            }
         }
     }
 
