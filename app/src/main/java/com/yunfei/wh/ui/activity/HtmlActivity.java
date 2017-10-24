@@ -554,11 +554,7 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
     @Override
     public void isCancelLogin(boolean isCancel) {
         if (isCancel) {
-            if (mWebView.canGoBack()) {
-                mWebView.goBack();
-            } else {
-                this.finish();
-            }
+            this.finish();
         } else {
             if (loginUrl != null) {// 如果拦截到网页登录，登录成功则跳转到loginUrl
                 mWebView.loadUrl(loginUrl);
