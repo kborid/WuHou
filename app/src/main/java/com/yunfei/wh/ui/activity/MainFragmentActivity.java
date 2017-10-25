@@ -1,10 +1,12 @@
 package com.yunfei.wh.ui.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioGroup;
@@ -128,6 +130,32 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
             intent.putExtra("path", path);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+        }
+
+        // schema
+        Intent intentScheme = getIntent();
+        Uri uri =intentScheme.getData();
+        if (uri != null) {
+            String path2 = uri.getPath();
+            if (!TextUtils.isEmpty(path2) && path2 != "") {
+
+                // 芝麻信用
+                if (path2.startsWith("/ZMXY/")) {
+                    path2 = path2.replace("/ZMXY/", "");
+                    if (path2.startsWith("http")) {
+                        Intent intent = new Intent(this, HtmlActivity.class);
+                        String fragment = uri.getFragment();
+
+                        if (!TextUtils.isEmpty(fragment) && fragment != "") {
+                            intent.putExtra("path", path2+"#"+fragment);
+                        } else {
+                            intent.putExtra("path", path2);
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                }
+            }
         }
     }
 

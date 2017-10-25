@@ -3,8 +3,10 @@ package com.yunfei.wh.ui.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -53,7 +55,7 @@ import cn.jpush.android.api.JPushInterface;
  * @author Liao
  */
 public class WelcomeActivity extends BaseActivity implements DataCallback {
-
+    private static final String TAG = "WelcomeActivity";
     private long start = 0;                                // 记录启动时间
     private final long LOADING_TIME = 1500;
     private final long AD_TIME = 3000;                            // 等待广告加载时间
@@ -241,10 +243,22 @@ public class WelcomeActivity extends BaseActivity implements DataCallback {
         if (isBreak) {
             return;
         }
+
         Intent intent = new Intent(WelcomeActivity.this, MainFragmentActivity.class);
         String value = BundleNavi.getInstance().getString("path");
         if (value != null && !value.equals("")) {
             BundleNavi.getInstance().putString("path", value);
+        }
+
+        // schema 跳转
+        // uri 传入 MainFragmentActivity
+        Intent intentScheme = getIntent();
+        Uri uri =intentScheme.getData();
+        if (uri != null) {
+            String path = uri.getPath();
+            if (!TextUtils.isEmpty(path)) {
+                intent.setData(uri);
+            }
         }
         startActivity(intent);
         finish();
