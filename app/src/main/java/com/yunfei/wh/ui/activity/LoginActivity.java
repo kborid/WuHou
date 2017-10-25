@@ -288,6 +288,7 @@ public class LoginActivity extends BaseActivity implements DataCallback, DialogI
             LogUtil.d("UserInfo", response.body.toString());
             // SharedPreferenceUtil.getInstance().setString(AppConst.THIRDPARTYBIND, "", false);//置空第三方绑定信息，需要在详情页面重新获取
             CustomToast.show("登录成功", 0);
+            AppContext.mAppContext.sendBroadcast(new Intent(Const.LOGIN_SUCCESS));
             AppContext.mAppContext.sendBroadcast(new Intent(Const.UPDATE_USERINFO));
             if (mCancelLogin != null) {
                 mCancelLogin.isCancelLogin(false);

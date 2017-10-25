@@ -279,6 +279,7 @@ public class LoginAndBindActivity extends BaseActivity implements DataCallback {
                 LogUtil.d("UserInfo", response.body.toString());
                 // SharedPreferenceUtil.getInstance().setString(AppConst.THIRDPARTYBIND, "", false);//置空第三方绑定信息，需要在详情页面重新获取
                 CustomToast.show(index == 0 ? "登录成功" : "绑定成功", 0);
+                AppContext.mAppContext.sendBroadcast(new Intent(Const.LOGIN_SUCCESS));
                 AppContext.mAppContext.sendBroadcast(new Intent(Const.UPDATE_USERINFO));
                 this.finish();
                 // 添加友盟自定义事件

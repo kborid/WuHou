@@ -21,6 +21,7 @@ public final class Const {
 	public static final String	VERSION				= "VERSION";			// 当前版本号
 	public static final String	INSTRUCTIONS		= "INSTRUCTIONS";		// 版本说明
 
+	public static final String	LOGIN_SUCCESS		= "login_success";	// 更新用户信息广播
 	public static final String	UPDATE_USERINFO		= "update_user_info";	// 更新用户信息广播
 	public static final String	UNLOGIN_ACTION		= "smartcity_unlogin"; // 未登录广播
 	public static final String	IS_SHOW_TIP_DIALOG	= "is_show_tip_dialog"; // 是否显示登录提示对话框

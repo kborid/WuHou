@@ -145,12 +145,16 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
                     if (path2.startsWith("http")) {
                         Intent intent = new Intent(this, HtmlActivity.class);
                         String fragment = uri.getFragment();
+                        String query = uri.getQuery();
 
-                        if (!TextUtils.isEmpty(fragment) && fragment != "") {
-                            intent.putExtra("path", path2+"#"+fragment);
-                        } else {
-                            intent.putExtra("path", path2);
+                        if (!TextUtils.isEmpty(query) && query != "") {
+                            path2 = path2 + "?" + query;
                         }
+                        if (!TextUtils.isEmpty(fragment) && fragment != "") {
+                            path2 = path2 + "#" + fragment;
+                        }
+
+                        intent.putExtra("path", path2);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }

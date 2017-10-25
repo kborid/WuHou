@@ -1,7 +1,10 @@
 package com.yunfei.wh.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -29,6 +32,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.prj.sdk.app.AppContext;
+import com.prj.sdk.constants.Const;
 import com.prj.sdk.util.ActivityTack;
 import com.prj.sdk.util.LogUtil;
 import com.prj.sdk.util.SharedPreferenceUtil;
@@ -83,6 +87,18 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
     private CustomShareView customShareView;
     private List<ShareBeanInfo> list = new ArrayList<>();
 
+    private IntentFilter intentFilter;
+    private LoginReceiver loginReceiver;
+
+
+    // 登陆成功 刷新
+    class LoginReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mWebView.reload();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +108,7 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
         dealIntent();
         initParams();
         initListeners();
+        initReceiver();
         // important , so that you can use js to call Uemng APIs
         // new MobclickAgentJSInterface(this, mWebView, new MyWebChromeClient());
         if (AppConst.ISDEVELOP) {
@@ -277,6 +294,13 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
         tv_left_title_close.setOnClickListener(this);
         btn_menu.setOnClickListener(this);
         customShareView.setOnDismissListener(listener);
+    }
+
+    private void initReceiver() {
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(Const.LOGIN_SUCCESS);
+        loginReceiver = new LoginReceiver();
+        registerReceiver(loginReceiver, intentFilter);
     }
 
     /**
@@ -476,6 +500,7 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
         destroyView();
         LoginActivity.setCancelLogin(null);
         common_loading_widget.closeLoading();
+        unregisterReceiver(loginReceiver);
     }
 
     /**
