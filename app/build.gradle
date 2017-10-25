@@ -89,8 +89,8 @@ model {
     android.productFlavors {
         create ("wuhou") {
             applicationId = "com.yunfei.wh"
-            versionCode = 186
-            versionName = "4.0.4"
+            versionCode = 190
+            versionName = "4.1.2"
             signingConfig = $("android.signingConfigs.signConfig")
             proguardFiles.add(file("proguard-rules.pro"))
         }

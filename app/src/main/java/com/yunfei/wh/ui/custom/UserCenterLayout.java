@@ -45,7 +45,7 @@ public class UserCenterLayout extends RelativeLayout implements View.OnClickList
 
     private CircleImageViewWithBound iv_photo;
     private TextView tv_username, tv_userid;
-    private TextView tv_myorder, tv_myemail, tv_mydealbyother;
+    private TextView tv_myorder, tv_myemail, tv_mydealbyother, tv_myonlinebusiness;
     private TextView tv_account_info, tv_msg, tv_server, tv_about;
     private TextView tv_msg_count;
 
@@ -94,6 +94,7 @@ public class UserCenterLayout extends RelativeLayout implements View.OnClickList
         tv_myorder = (TextView) findViewById(R.id.tv_myorder);
         tv_myemail = (TextView) findViewById(R.id.tv_myemail);
         tv_mydealbyother = (TextView) findViewById(R.id.tv_mydealbyorther);
+        tv_myonlinebusiness = (TextView) findViewById(R.id.tv_myOnlineBusiness);
 
         tv_account_info = (TextView) findViewById(R.id.tv_account_info);
         tv_msg = (TextView) findViewById(R.id.tv_message);
@@ -117,6 +118,7 @@ public class UserCenterLayout extends RelativeLayout implements View.OnClickList
         tv_myorder.setOnClickListener(this);
         tv_myemail.setOnClickListener(this);
         tv_mydealbyother.setOnClickListener(this);
+        tv_myonlinebusiness.setOnClickListener(this);
         tv_account_info.setOnClickListener(this);
         tv_msg.setOnClickListener(this);
         tv_server.setOnClickListener(this);
@@ -217,6 +219,15 @@ public class UserCenterLayout extends RelativeLayout implements View.OnClickList
                 break;
             case R.id.tv_about:
                 intent = new Intent(context, AboutActivity.class);
+                break;
+            case R.id.tv_myOnlineBusiness:
+                if (LogUtil.isDebug()) {
+                    intent = new Intent(context, HtmlActivity.class);
+                    intent.putExtra("path", "http://uat.cdwh.org:7878/ht/BusinessManagement/uat/index.html#/center");
+                } else {
+                    intent = new Intent(context, HtmlActivity.class);
+                    intent.putExtra("path", "http://cdwh.org/ht/BusinessManagement/dist/index.html#/center");
+                }
                 break;
             default:
                 break;
