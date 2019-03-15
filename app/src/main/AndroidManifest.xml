@@ -4,10 +4,6 @@
     package="com.yunfei.wh"
     tools:ignore="GradleOverrides">
 
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="21" />
-
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -38,6 +34,12 @@
                 <data android:scheme="@string/app_scheme"/>
             </intent-filter>
         </activity>
+
+        <!--权限画面-->
+        <activity
+            android:name=".permission.PermissionsActivity"
+            android:theme="@style/AppTheme.PermissionTheme" />
+
         <!-- 我的问答 -->
         <activity
             android:name=".ui.activity.MainFragmentActivity"
@@ -51,6 +53,9 @@
         <activity
             android:name=".ui.activity.EasyARActivity"
             android:screenOrientation="portrait" />
+        <!--custom camera-->
+        <activity android:name=".camera.CustomCameraActivity"
+            android:screenOrientation="portrait"/>
         <!-- 登录 -->
         <activity
             android:name=".ui.activity.LoginActivity"
@@ -415,6 +420,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!--不需要运行时检查的权限-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.GET_TASKS" />

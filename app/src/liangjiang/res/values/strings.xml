@@ -97,6 +97,7 @@
     <string name="uc_mynumber">我的取号</string>
     <string name="uc_myemail">我的邮寄取件</string>
     <string name="uc_mydealbyorther">我的证照代办</string>
+    <string name="uc_myonlinebusiness">我的在线办理</string>
     <string name="uc_mymark">我的收藏</string>
     <string name="uc_account_info">账户信息</string>
     <string name="uc_other_order">其他订单</string>

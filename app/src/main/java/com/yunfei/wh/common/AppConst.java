@@ -1,5 +1,6 @@
 package com.yunfei.wh.common;
 
+import com.prj.sdk.BuildConfig;
 import com.prj.sdk.util.LogUtil;
 
 /**
@@ -8,7 +9,7 @@ import com.prj.sdk.util.LogUtil;
  * @author LiaoBo
  */
 public final class AppConst {
-    public static final boolean ISDEVELOP = LogUtil.isDebug();                                    // 开发者模式
+    public static final boolean ISDEVELOP = BuildConfig.DEBUG;                                    // 开发者模式
 
     public static final String APPTYPE = "type";                                                // 类型：0代表UAT，1代表生产
 

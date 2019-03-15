@@ -166,9 +166,9 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
                     }, 2000);
                     CustomToast.show("切换成功，即将退出，请手动重启", 0);
                     return;
-                } else if ("4".equals(URL)) {
-                    Intent intent = new Intent(HtmlActivity.this, EasyARActivity.class);
-                    startActivity(intent);
+//                } else if ("4".equals(URL)) {
+//                    Intent intent = new Intent(HtmlActivity.this, EasyARActivity.class);
+//                    startActivity(intent);
                 }
 
                 mWebView.loadUrl(URL);

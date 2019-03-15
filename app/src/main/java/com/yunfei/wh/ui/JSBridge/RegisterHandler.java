@@ -3,10 +3,12 @@ package com.yunfei.wh.ui.JSBridge;
 import android.content.Context;
 
 import com.yunfei.wh.ui.JSBridge.functions.customerService;
+import com.yunfei.wh.ui.JSBridge.functions.getIDCardPic;
 import com.yunfei.wh.ui.JSBridge.functions.getCityInfo;
 import com.yunfei.wh.ui.JSBridge.functions.getDeviceId;
 import com.yunfei.wh.ui.JSBridge.functions.getPhone;
 import com.yunfei.wh.ui.JSBridge.functions.getPicturesUpload;
+import com.yunfei.wh.ui.JSBridge.functions.getSelfPic;
 import com.yunfei.wh.ui.JSBridge.functions.getStreetID;
 import com.yunfei.wh.ui.JSBridge.functions.getUserId;
 import com.yunfei.wh.ui.JSBridge.functions.getUserTicket;
@@ -58,5 +60,7 @@ public class RegisterHandler {
         mWVJBWebViewClient.registerHandler("customerService", new customerService(mContext));
         mWVJBWebViewClient.registerHandler("showNativeMap", new showNativeMap(mContext));
         mWVJBWebViewClient.registerHandler("getStreetID", new getStreetID());
+        mWVJBWebViewClient.registerHandler("getIDCardPic", new getIDCardPic(mContext));
+        mWVJBWebViewClient.registerHandler("getSelfPic", new getSelfPic(mContext));
     }
 }

@@ -17,8 +17,7 @@ import java.util.Map;
  */
 public final class AppContext {
 
-    public static final Handler mMainHandler = new Handler(
-            Looper.getMainLooper()); // 公共Handler
+    public static final Handler mMainHandler = new Handler(Looper.getMainLooper()); // 公共Handler
     public static Map<String, Object> mMemoryMap = null; // 提供调用memory存取值
     public static DBManager mDBManager = null;
     /*

@@ -26,6 +26,7 @@ import com.prj.sdk.util.StringUtil;
 import com.prj.sdk.widget.CustomToast;
 import com.umeng.analytics.MobclickAgent;
 import com.yunfei.wh.R;
+import com.yunfei.wh.app.PRJApplication;
 import com.yunfei.wh.codescan.control.CaptureActivity;
 import com.yunfei.wh.common.AppConst;
 import com.yunfei.wh.common.NetURL;
@@ -34,6 +35,8 @@ import com.yunfei.wh.control.BundleNavi;
 import com.yunfei.wh.control.UpdateControl;
 import com.yunfei.wh.net.RequestBeanBuilder;
 import com.yunfei.wh.net.bean.UserInfo;
+import com.yunfei.wh.permission.PermissionsActivity;
+import com.yunfei.wh.permission.PermissionsDef;
 import com.yunfei.wh.ui.adapter.MainFragmentAdapter;
 import com.yunfei.wh.ui.base.BaseFragmentActivity;
 import com.yunfei.wh.ui.custom.CommonTitleLayout;
@@ -330,8 +333,11 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
                 drawerLayout.openDrawer(userCenterLayout);
                 break;
             case R.id.code_lay:
-                Intent intent = new Intent(MainFragmentActivity.this,
-                        CaptureActivity.class);
+                if (PRJApplication.getPermissionsChecker(this).lacksPermissions(PermissionsDef.CAMERA)) {
+                    PermissionsActivity.startActivityForResult(this, PermissionsDef.PERMISSION_REQ_CODE, PermissionsDef.CAMERA);
+                    return;
+                }
+                Intent intent = new Intent(MainFragmentActivity.this, CaptureActivity.class);
                 startActivity(intent);
                 break;
             case R.id.title_lay:

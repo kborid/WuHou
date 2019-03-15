@@ -17,11 +17,11 @@ public final class NetURL {
 		final String[] SERVER_USRS = {AppContext.mAppContext.getString(R.string.uat_server_url), AppContext.mAppContext.getString(R.string.release_server_url), "http://192.168.1.222/"};
 
 		if (AppConst.ISDEVELOP) {
-			int status = SharedPreferenceUtil.getInstance().getInt(AppConst.APPTYPE, 0);
-			return SERVER_USRS[status];
-		} else {
-			return SERVER_USRS[1];
-		}
+            int status = SharedPreferenceUtil.getInstance().getInt(AppConst.APPTYPE, 0);
+            return SERVER_USRS[status];
+        } else {
+            return SERVER_USRS[1];
+        }
 	}
 
     public static String getWhHmApi() {

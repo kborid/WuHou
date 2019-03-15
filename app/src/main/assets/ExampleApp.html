@@ -1,5 +1,5 @@
 <!doctype html>
-<html><head>
+<html xmlns:font-size="http://www.w3.org/1999/xhtml"><head>
     <style type='text/css'>
         html { font-family:Helvetica; color:#222; }
         h1 { color:steelblue; font-size:30px; margin-top:24px; }
@@ -97,7 +97,8 @@
                                                       })
                                    
                                    }
-                                   
+
+
                                    var getUserTicket = document.getElementById('buttons').appendChild(document.createElement('button'))
                                    getUserTicket.innerHTML = 'getUserTicket'
                                    getUserTicket.onclick = function(e) {
@@ -165,6 +166,25 @@
                                                       alert(response);
                                                       })
                                    }
+
+                                   var getIDCardPicButton = document.getElementById('buttons').appendChild(document.createElement('button'))
+                                   getIDCardPicButton.innerHTML = 'getIDCardPic'
+                                   getIDCardPicButton.onclick = function(e) {
+                                   e.preventDefault()
+                                   bridge.callHandler('getIDCardPic', null, function(response) {
+                                                      log('getIDCardPic', response)
+                                                      })
+                                   }
+
+                                   var getSelfPicButton = document.getElementById('buttons').appendChild(document.createElement('button'))
+                                   getSelfPicButton.innerHTML = 'getSelfPic'
+                                   getSelfPicButton.onclick = function(e) {
+                                   e.preventDefault()
+                                   bridge.callHandler('getSelfPic', null, function(response) {
+                                                      log('getSelfPic', response)
+                                                      })
+                                   }
+
                                    })
         </script>
     <div id='buttons'></div> <input accept="image/*" type="file"> <div id='log'></div>

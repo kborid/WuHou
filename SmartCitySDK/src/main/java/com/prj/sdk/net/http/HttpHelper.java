@@ -28,7 +28,7 @@ public class HttpHelper {
         Response response = null;
         try {
             response = getResponse(url, httpType, header, mEntity, isForm);
-            mResponseBody = response.isSuccessful() ? response.body() : null;
+            mResponseBody = response != null && response.isSuccessful() ? response.body() : null;
             return mResponseBody != null ? mResponseBody.bytes() : null;
         } catch (Exception e) {
             e.printStackTrace();

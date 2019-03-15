@@ -98,6 +98,7 @@
     <string name="uc_mynumber">我的取号</string>
     <string name="uc_myemail">我的邮寄取件</string>
     <string name="uc_mydealbyorther">我的证照代办</string>
+    <string name="uc_myonlinebusiness">我的在线办理</string>
     <string name="uc_mymark">我的收藏</string>
     <string name="uc_account_info">账户信息</string>
     <string name="uc_other_order">其他订单</string>
@@ -178,9 +179,6 @@
     <string name="new_password_hint">请输入新密码，6–20个字符</string>
     <string name="confirm_password">确认密码：</string>
     <string name="confirm_password_hint">请重新输入新密码</string>
-
-    <!--地图-->
-    <string name="detail"><u>详情</u></string>
 
     <string name="develop_test">开发测试</string>
     <string name="js_test">JS测试</string>

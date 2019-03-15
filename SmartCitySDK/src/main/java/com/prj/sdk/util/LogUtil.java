@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.util.Log;
 
+import com.prj.sdk.BuildConfig;
+
 /**
  * 对android自带日志的一个简单封装，方便调用
  *
@@ -12,16 +14,9 @@ import android.util.Log;
 public class LogUtil {
 
     private static long startTime = 0;
-    private static Boolean DEBUG = null;
 
     public static boolean isDebug() {
-        return DEBUG == null ? false : DEBUG.booleanValue();
-    }
-
-    public static void syncIsDebug(Context context) {
-        if (DEBUG == null) {
-            DEBUG = context.getApplicationInfo() != null && (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        }
+        return BuildConfig.DEBUG;
     }
 
     // 冗余信息输出

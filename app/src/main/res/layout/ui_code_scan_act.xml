@@ -69,6 +69,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="10dp"
+                android:visibility="gone"
                 android:text="@string/ar_ex"
                 android:textColor="@color/lightGreen"
                 android:textSize="@dimen/common_text_size" />

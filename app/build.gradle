@@ -1,46 +1,54 @@
-apply plugin: 'com.android.model.application'
+apply plugin: 'com.android.application'
 
-model {
-    android {
-        compileSdkVersion = 23
-        buildToolsVersion = "23.0.3"
 
-        defaultConfig.with {
-            applicationId = "com.yunfei.wh"
-            minSdkVersion.apiLevel = 14
-            targetSdkVersion.apiLevel = 21
-            multiDexEnabled = true
-            vectorDrawables.useSupportLibrary = true
+android {
+    compileSdkVersion 27
+    useLibrary 'org.apache.http.legacy'
+
+    defaultConfig {
+        minSdkVersion 15
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets']
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+            jniLibs.srcDirs = ['libs']
         }
     }
-    android.signingConfigs {
-        create("signConfig") {
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable = false
+        }
+    }
+
+    signingConfigs {
+        wh {
+            storeFile file("./src/wuhou/a7dfc32cdf8f679ead9db3f1042762.keystore")
+            storePassword "wh0102"
             keyAlias "wh0102"
             keyPassword "wh0102"
-            storeFile "./src/wuhou/a7dfc32cdf8f679ead9db3f1042762.keystore"
-            storePassword "wh0102"
         }
-        create("LiangJiangSignConfig") {
+
+        lj {
+            storeFile file("./src/liangjiang/z012v4_single.keystore")
+            storePassword "z012v4single"
             keyAlias "z012v4"
             keyPassword "z012v4single"
-            storeFile "./src/liangjiang/z012v4_single.keystore"
-            storePassword "z012v4single"
         }
     }
 
-    android.ndk {
-        moduleName = "DCEasyARNative"
-        cppFlags.add("-I${file("jni/include")}".toString())
-        cppFlags.add("-DANDROID")
-        cppFlags.add("-fexceptions")
-        cppFlags.add("-frtti")
-        stl = "gnustl_static"
-        ldLibs.add("log")
-        ldLibs.add("GLESv2")
-        abiFilters.add("armeabi-v7a")
-    }
-
-    android.packagingOptions {
+    packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
@@ -48,89 +56,53 @@ model {
         exclude 'META-INF/NOTICE.txt'
     }
 
-    android.lintOptions {
+    lintOptions {
         checkReleaseBuilds false
         abortOnError false
     }
 
-    android.buildTypes {
-        release {
-            minifyEnabled = true
-            zipAlignEnabled = true
+    flavorDimensions "city"
+
+    productFlavors {
+        wuhou {
+            dimension "city"
+            applicationId "com.yunfei.wh"
+            versionCode 191
+            versionName "4.1.3"
+            signingConfig signingConfigs.wh
         }
-        debug{
-            minifyEnabled = true
-            zipAlignEnabled = true
+
+        liangjiang {
+            dimension "city"
+            applicationId "com.digitalchina.liangjiang"
+            versionCode 2
+            versionName "2.0.1"
+            signingConfig signingConfigs.lj
         }
     }
 
-    repositories {
-        libs(PrebuiltLibraries) {
-            jniARLib {
-                headers.srcDir "src/main/jni/include/"
-                binaries.withType(SharedLibraryBinary) {
-                    sharedLibraryFile = file("libs/armeabi-v7a/libEasyAR.so")
-                }
-            }
-        }
+    productFlavors.all { flavor ->
+        manifestPlaceholders.put("AppPackageName",applicationId)
     }
-
-    android.sources {
-        main {
-            jni {
-                dependencies {
-                    library "jniARLib" linkage "shared"
-                }
-            }
-            jniLibs.source.srcDirs = ['libs']
-        }
-    }
-
-    android.productFlavors {
-        create ("wuhou") {
-            applicationId = "com.yunfei.wh"
-            versionCode = 190
-            versionName = "4.1.2"
-            signingConfig = $("android.signingConfigs.signConfig")
-            proguardFiles.add(file("proguard-rules.pro"))
-        }
-        create ("liangjiang") {
-            applicationId = "com.digitalchina.liangjiang"
-            versionCode = 2
-            versionName = "2.0.1"
-            signingConfig = $("android.signingConfigs.LiangJiangSignConfig")
-            proguardFiles.add(file("proguard-rules.pro"))
-        }
-    }
-//    android.applicationVariants.all {
-//        variant ->
-//            variant.outputs.each { output ->
-//                if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
-//                    def apkFile = new File(
-//                            output.outputFile.getParent(),
-//                            "${appName()}_v${variant.versionName}_${buildTime()}-${variant.buildType.name}.apk")
-//                    output.outputFile = apkFile
-//                }
-//            }
-//    }
 }
+
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile project(':SmartCitySDK')
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:cardview-v7:23.4.0'
-    compile 'com.squareup.wire:wire-runtime:2.1.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    //android support library
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
     // 美洽SDK
-    compile 'com.meiqia:meiqiasdk:3.2.2@aar'
+    implementation 'com.meiqia:meiqiasdk:3.2.2@aar'
     // 美洽支持jar包
-    compile 'com.commit451:PhotoView:1.2.4'
+    implementation 'com.commit451:PhotoView:1.2.4'
     // 美洽图片加载库
-    compile 'com.meiqia:uilimageloader:1.0.0@aar'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    // 内存泄漏检查工具库
-    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
-    //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
-    compile 'com.google.zxing:zxing-parent:3.2.1'
+    implementation 'com.meiqia:uilimageloader:1.0.0@aar'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.google.zxing:zxing-parent:3.3.3'
+    implementation 'com.alibaba:fastjson:1.2.10'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation project(path: ':SmartCitySDK')
 }

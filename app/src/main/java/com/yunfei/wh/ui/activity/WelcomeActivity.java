@@ -31,6 +31,7 @@ import com.prj.sdk.util.Utils;
 import com.prj.sdk.widget.CustomToast;
 import com.umeng.analytics.MobclickAgent;
 import com.yunfei.wh.R;
+import com.yunfei.wh.app.PRJApplication;
 import com.yunfei.wh.common.AppConst;
 import com.yunfei.wh.common.NetURL;
 import com.yunfei.wh.common.SessionContext;
@@ -41,10 +42,13 @@ import com.yunfei.wh.net.bean.AdvertisementBean;
 import com.yunfei.wh.net.bean.AppInfoBean;
 import com.yunfei.wh.net.bean.CommuInfoBean;
 import com.yunfei.wh.net.bean.DiscoveryChannelBean;
+import com.yunfei.wh.permission.PermissionsActivity;
+import com.yunfei.wh.permission.PermissionsDef;
 import com.yunfei.wh.ui.base.BaseActivity;
 import com.yunfei.wh.ui.dialog.CustomDialog;
 
 import java.net.ConnectException;
+import java.util.Collections;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
@@ -80,6 +84,14 @@ public class WelcomeActivity extends BaseActivity implements DataCallback {
     protected void onResume() {
         super.onResume();
         JPushInterface.onResume(this);// 用于“用户使用时长”，“活跃用户”，“用户打开次数”的统计，并上报到服务器，在 Portal 上展示给开发者
+
+        // 缺少权限时, 进入权限配置页面
+        if (PRJApplication.getPermissionsChecker(this).lacksPermissions(PermissionsDef.LAUNCH_REQUIRE_PERMISSIONS)) {
+            PermissionsActivity.startActivityForResult(this, PermissionsDef.PERMISSION_REQ_CODE, PermissionsDef.LAUNCH_REQUIRE_PERMISSIONS);
+            return;
+        }
+
+        loadData();
     }
 
     @Override
@@ -117,8 +129,11 @@ public class WelcomeActivity extends BaseActivity implements DataCallback {
         SessionContext.initUserInfo();
         SessionContext.setAreaCode(getString(R.string.areaCode), getString(R.string.areaName));
         Utils.initScreenSize(this);// 设置手机屏幕大小
-        loadAppInfo();
+    }
+
+    private void loadData() {
         loadCacheData();
+        loadAppInfo();
         loadAd();
         loadDiscoverChannel();
         requestCommunityStreetList();
@@ -217,6 +232,8 @@ public class WelcomeActivity extends BaseActivity implements DataCallback {
      */
     public void loadCacheData() {
         LogUtil.d("dw", "loadCacheData()");
+        Collections.addAll(DataLoader.getInstance().mCacheUrls, NetURL.CACHE_URL);
+
         try {
             byte[] channeldata = DataLoader.getInstance().getCacheData(NetURL.DIS_CHANNEL);
             if (channeldata != null) {

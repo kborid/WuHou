@@ -396,8 +396,8 @@ public class WVJBWebViewClient extends WebViewClient {
 
 //                view.loadUrl(url);// 设置点击网页里面的链接还是在当前的webview里跳转
 //                return true;
-//                return super.shouldOverrideUrlLoading(view, url);
-                return false;
+                return super.shouldOverrideUrlLoading(view, url);
+//                return false;
             } catch (Exception localException) {
                 localException.printStackTrace();
                 return false;
