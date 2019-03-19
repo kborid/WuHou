@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.os.Build;
-import android.os.StrictMode;
 import android.webkit.WebView;
 
 import com.meiqia.core.callback.OnInitCallback;
@@ -24,7 +23,6 @@ import com.yunfei.wh.common.CrashHandler;
 import com.yunfei.wh.control.AMapLocationControl;
 import com.yunfei.wh.control.UpdateControl;
 import com.yunfei.wh.permission.PermissionsChecker;
-import com.yunfei.wh.ui.activity.WelcomeActivity;
 
 import cn.jpush.android.api.JPushInterface;
 

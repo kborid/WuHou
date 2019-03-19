@@ -1,6 +1,5 @@
 package com.yunfei.wh.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +15,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.webkit.DownloadListener;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -65,7 +63,6 @@ import java.util.List;
  * @author LiaoBo
  * @date 2014-7-8
  */
-@SuppressLint("SetJavaScriptEnabled")
 public class HtmlActivity extends BaseActivity implements onCancelLoginListener {
 
     private static final String TAG = "HtmlActivity";
@@ -87,7 +84,6 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
     private CustomShareView customShareView;
     private List<ShareBeanInfo> list = new ArrayList<>();
 
-    private IntentFilter intentFilter;
     private LoginReceiver loginReceiver;
 
 
@@ -105,12 +101,9 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
         setContentView(R.layout.ui_web_act);
         createController();
         initViews();
-        dealIntent();
         initParams();
         initListeners();
         initReceiver();
-        // important , so that you can use js to call Uemng APIs
-        // new MobclickAgentJSInterface(this, mWebView, new MyWebChromeClient());
         if (AppConst.ISDEVELOP) {
             if (getIntent().getBooleanExtra("ISDEVELOP", false)) {
                 initDevelop();
@@ -224,17 +217,18 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
     @Override
     public void dealIntent() {
         super.dealIntent();
-        if (getIntent().getExtras() != null && getIntent().getExtras().getString("path") != null) {
-            URL = getIntent().getExtras().getString("path");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null && bundle.getString("path") != null) {
+            URL = bundle.getString("path");
             if (URL != null && !URL.startsWith("http")) {
                 URL = "http://" + URL;
             }
         }
-        if (getIntent().getExtras() != null && getIntent().getExtras().getString("title") != null) {
-            mTitle = getIntent().getExtras().getString("title");
+        if (bundle != null && bundle.getString("title") != null) {
+            mTitle = bundle.getString("title");
         }
-        if (getIntent().getExtras() != null && getIntent().getExtras().getString("id") != null) {
-            mID = getIntent().getExtras().getString("id");
+        if (bundle != null && bundle.getString("id") != null) {
+            mID = bundle.getString("id");
         }
     }
 
@@ -251,38 +245,24 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
         webSetting.setLoadWithOverviewMode(true);// 充满全屏。
         mWebView.setHorizontalScrollBarEnabled(false);// 水平不显示
         mWebView.setVerticalScrollBarEnabled(false); // 垂直不显示
-        webSetting.setAllowFileAccess(true);// 允许访问文件数据
         webSetting.setDomStorageEnabled(true);// 开启Dom存储Api(启用地图、定位之类的都需要)
         webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);// 提高渲染的优先级
         // 应用可以有缓存
         webSetting.setAppCacheEnabled(true);// 开启 Application Caches 功能
         webSetting.setAppCachePath(Utils.getFolderDir("webCache"));
-        // 应用可以有数据库
-        webSetting.setDatabaseEnabled(true);// 启用数据库
-        webSetting.setDatabasePath(Utils.getFolderDir("webDatabase"));
         webSetting.setGeolocationEnabled(true); // 启用地理定位
-        webSetting.setDefaultTextEncodingName("utf-8");
-        mWebView.setDownloadListener(new MyWebViewDownLoadListener());// 开启文件下载功能
-        try {
-            StringBuilder sb = new StringBuilder();
-            String pkName = this.getPackageName();
-            String versionName = this.getPackageManager().getPackageInfo(pkName, 0).versionName;
-//            sb.append(webSetting.getUserAgentString()).append(" Android/").append(pkName).append("/").append(versionName);// 名字+包名+版本号
-            sb.append(webSetting.getUserAgentString()).append(" Android/").append(BuildConfig.FLAVOR).append("/").append(versionName);// 名字+wuhou+版本号
-            webSetting.setUserAgentString(sb.toString());// 追加修改ua特征标识（名字+包名+版本号）使得web端正确判断
-            LogUtil.i(TAG, "WebView's UserAgent:"+webSetting.getUserAgentString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (Build.VERSION.SDK_INT >= 19) { // 控制图片加载处理，提高view加载速度
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(webSetting.getUserAgentString()).append(" Android/").append(BuildConfig.FLAVOR).append("/").append(BuildConfig.VERSION_NAME);// 名字+wuhou+版本号
+        webSetting.setUserAgentString(sb.toString());// 追加修改ua特征标识（名字+包名+版本号）使得web端正确判断
+        LogUtil.i(TAG, "WebView's UserAgent:" + webSetting.getUserAgentString());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // 控制图片加载处理，提高view加载速度
             webSetting.setLoadsImagesAutomatically(true);
         } else {
             webSetting.setLoadsImagesAutomatically(false);
         }
-        // URL = "file:///android_asset/index.html";
         mWebView.loadUrl(URL);
-        // 增加接口方法,让html页面调用
-        // addJSInterfaces();
     }
 
     public void initListeners() {
@@ -297,7 +277,7 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
     }
 
     private void initReceiver() {
-        intentFilter = new IntentFilter();
+        IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Const.LOGIN_SUCCESS);
         loginReceiver = new LoginReceiver();
         registerReceiver(loginReceiver, intentFilter);
@@ -465,36 +445,6 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mWebView.saveState(outState);
-    }
-
-    /**
-     * webview 下载文件
-     *
-     * @author LiaoBo
-     */
-    class MyWebViewDownLoadListener implements DownloadListener {
-
-        @Override
-        public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-            Utils.startWebView(HtmlActivity.this, url);
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mWebView.stopLoading();
-    }
-
     public void onDestroy() {
         super.onDestroy();
         destroyView();
@@ -508,13 +458,6 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
      */
     public void destroyView() {
         mWebView.stopLoading();
-        mWebView.removeAllViews();
-        mWebView.clearAnimation();
-        mWebView.clearFormData();
-        mWebView.clearHistory();
-        mWebView.clearMatches();
-        mWebView.clearSslPreferences();
-        // mWebView.clearCache(true);
         mWebView.destroy();
         AppContext.mMemoryMap.clear();// 清空提供给网页的缓存
         mCtrl.onDestroy();
@@ -628,9 +571,4 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
             mWebView.reload();
         }
     };
-
-    @Override
-    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-        return super.onKeyLongPress(keyCode, event);
-    }
 }

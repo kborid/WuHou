@@ -3,7 +3,6 @@
 
     <!--app scheme-->
     <string name="app_scheme">DCliangjiang</string>
-
     <!--Easy AR AppKey undo -->
     <string name="EasyARAppKey">UGOhAg3JFpeFWrZaBY2SwSiyi8T3g2jn8JHjTpZBo5QdOiVe6fXrhPFRnRsrKMHHtQ2d1UE5WqM2FZsZTOvbx34t1jIf1UCzSyIq779b4d75e5276c781af9826027e99ecdKXuV1KBUEM2VZb9ANQqgpfwWmhV9MrGkXPQnkdqp5yfanBUxJdBsjfapyzFvxWT9ZUsB</string>
     <!--美洽 AppKey undo -->
@@ -17,13 +16,10 @@
     <string name="qq_appid">1105813071</string>
     <string name="qq_appkey">1Qwf9dX0ytLO06o7</string>
     <string name="qq_scheme">tencent1105813071</string>
-    <!-- 百度定位key todo -->
-    <!--<string name="baidu_location_appkey">s2lmgmoiG2NGegGowH1qXK8c</string>-->
     <!-- 高德定位key todo -->
     <string name="amap_location_appkey">3f37a7be77d761ad0950c982b896f784</string>
     <!-- 极光推送 undo -->
     <string name="jpush_appkey"><!--f183016d01db77c8761aec96--></string>
-    
     <!-- 设置默认城市信息 -->
     <string name="areaCode">500999</string>
     <string name="areaName">两江</string>
@@ -39,5 +35,9 @@
     <string name="businessType_bindPhone">160137</string>
     <string name="businessType_findPwd">160134</string>
     <string name="businessType_loginYZM">160139</string>
+
+    <!--芝麻信用-->
+    <string name="ZMXY_host">Alipay</string>
+    <string name="ZMXY_prefix">/ZMXY</string>
 
 </resources>

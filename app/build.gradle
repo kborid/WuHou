@@ -23,12 +23,15 @@ android {
     }
 
     buildTypes {
+        debug {
+
+        }
+
         release {
             minifyEnabled true
             zipAlignEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            debuggable = false
         }
     }
 
@@ -82,7 +85,7 @@ android {
     }
 
     productFlavors.all { flavor ->
-        manifestPlaceholders.put("AppPackageName",applicationId)
+        manifestPlaceholders.put("AppPackageName", applicationId)
     }
 }
 
@@ -102,7 +105,7 @@ dependencies {
     implementation 'com.meiqia:uilimageloader:1.0.0@aar'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'com.google.zxing:zxing-parent:3.3.3'
-    implementation 'com.alibaba:fastjson:1.2.10'
+    implementation 'com.alibaba:fastjson:1.2.51'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation project(path: ':SmartCitySDK')
 }
