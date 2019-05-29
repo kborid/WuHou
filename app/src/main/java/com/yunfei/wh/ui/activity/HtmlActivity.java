@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.net.http.SslError;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -34,10 +33,11 @@ import com.prj.sdk.constants.Const;
 import com.prj.sdk.util.ActivityTack;
 import com.prj.sdk.util.LogUtil;
 import com.prj.sdk.util.SharedPreferenceUtil;
-import com.prj.sdk.util.Utils;
 import com.prj.sdk.widget.CustomToast;
 import com.prj.sdk.widget.webview.ChooserFileController;
 import com.prj.sdk.widget.webview.WebChromeClientCompat;
+import com.thunisoft.jsbridge.WVJBWebViewClient;
+import com.thunisoft.jsbridge.wvjb.WVJBResponseCallback;
 import com.umeng.socialize.sso.UMSsoHandler;
 import com.yunfei.wh.BuildConfig;
 import com.yunfei.wh.R;
@@ -47,7 +47,6 @@ import com.yunfei.wh.common.NetURL;
 import com.yunfei.wh.common.SessionContext;
 import com.yunfei.wh.control.ShareControl;
 import com.yunfei.wh.ui.JSBridge.RegisterHandler;
-import com.yunfei.wh.ui.JSBridge.WVJBWebViewClient;
 import com.yunfei.wh.ui.activity.LoginActivity.onCancelLoginListener;
 import com.yunfei.wh.ui.base.BaseActivity;
 import com.yunfei.wh.ui.custom.CommonLoadingWidget;
@@ -235,33 +234,11 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
     public void initParams() {
         super.initParams();
         LoginActivity.setCancelLogin(this);
-
-        WebSettings webSetting = mWebView.getSettings();
-        webSetting.setJavaScriptEnabled(true);
-        webSetting.setJavaScriptCanOpenWindowsAutomatically(true);
-        webSetting.setCacheMode(WebSettings.LOAD_DEFAULT);
-        webSetting.setSupportZoom(false);
-        webSetting.setUseWideViewPort(true);// 将图片调整到适合webview的大小
-        webSetting.setLoadWithOverviewMode(true);// 充满全屏。
-        mWebView.setHorizontalScrollBarEnabled(false);// 水平不显示
-        mWebView.setVerticalScrollBarEnabled(false); // 垂直不显示
-        webSetting.setDomStorageEnabled(true);// 开启Dom存储Api(启用地图、定位之类的都需要)
-        webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);// 提高渲染的优先级
-        // 应用可以有缓存
-        webSetting.setAppCacheEnabled(true);// 开启 Application Caches 功能
-        webSetting.setAppCachePath(Utils.getFolderDir("webCache"));
-        webSetting.setGeolocationEnabled(true); // 启用地理定位
-
         StringBuilder sb = new StringBuilder();
-        sb.append(webSetting.getUserAgentString()).append(" Android/").append(BuildConfig.FLAVOR).append("/").append(BuildConfig.VERSION_NAME);// 名字+wuhou+版本号
-        webSetting.setUserAgentString(sb.toString());// 追加修改ua特征标识（名字+包名+版本号）使得web端正确判断
-        LogUtil.i(TAG, "WebView's UserAgent:" + webSetting.getUserAgentString());
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // 控制图片加载处理，提高view加载速度
-            webSetting.setLoadsImagesAutomatically(true);
-        } else {
-            webSetting.setLoadsImagesAutomatically(false);
-        }
+        WebSettings webSettings = mWebView.getSettings();
+        sb.append(webSettings.getUserAgentString()).append(" Android/").append(BuildConfig.FLAVOR).append("/").append(BuildConfig.VERSION_NAME);// 名字+wuhou+版本号
+        webSettings.setUserAgentString(sb.toString());// 追加修改ua特征标识（名字+包名+版本号）使得web端正确判断
+        LogUtil.i(TAG, "WebView's UserAgent:" + webSettings.getUserAgentString());
         mWebView.loadUrl(URL);
     }
 
@@ -357,36 +334,6 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
                 view.getSettings().setLoadsImagesAutomatically(true);
             }
             mWebView.setEnabled(true);
-
-//            if (url != null) {
-//                // 拦截巴士公交进行原生定位,向js注入定位结果
-//                if (url.startsWith("http://m.basbus.cn")) {
-//                    if (mLatitude != 0 && mLongitude != 0) {
-//                        final StringBuilder script = new StringBuilder();
-//                        script.append("getic(").append(mLongitude).append(",").append(mLatitude).append(")");
-//                        executeJavascript(script.toString());
-//                    } else if (!AMapLocationControl.getInstance().isStart()) {
-//                        AMapLocationControl.getInstance().startLocationOnce(HtmlActivity.this, new AMapLocationControl.LocationCallback(){
-//
-//                            @Override
-//                            public void onLocationInfo(AMapLocation locationInfo) {
-//                                if (locationInfo == null) {
-//                                    return;
-//                                }
-//                                try {
-//                                    mLatitude = locationInfo.getLatitude();
-//                                    mLongitude = locationInfo.getLongitude();
-//                                    StringBuilder script = new StringBuilder();
-//                                    script.append("getic(").append(mLongitude).append(",").append(mLatitude).append(")");
-//                                    executeJavascript(script.toString());
-//                                } catch (Exception e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        });
-//                    }
-//                }
-//            }
 
             callHandler("addActionMethodsToNative", null, new WVJBResponseCallback() {
                 @Override
@@ -556,11 +503,11 @@ public class HtmlActivity extends BaseActivity implements onCancelLoginListener 
 
         @Override
         public void action(int i) {
-            myWebViewClient.callHandler(list.get(i).action, null, new WVJBWebViewClient.WVJBResponseCallback() {
+            myWebViewClient.callHandler(list.get(i).action, null, new WVJBResponseCallback() {
                 @Override
                 public void callback(Object data) {
                     if (data != null) {
-                        LogUtil.d(TAG, "data = " + data.toString());
+                        LogUtil.d(TAG, "data = " + data);
                     }
                 }
             });

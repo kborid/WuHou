@@ -1,7 +1,6 @@
 package com.yunfei.wh.ui.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 
-import com.prj.sdk.net.image.ImageLoader;
-import com.prj.sdk.net.image.ImageLoader.ImageCallback;
-import com.prj.sdk.util.DisplayUtil;
-import com.prj.sdk.util.StringUtil;
+import com.bumptech.glide.Glide;
+import com.prj.sdk.util.Utils;
 import com.yunfei.wh.R;
 
 import java.util.ArrayList;
@@ -21,7 +18,9 @@ public class DiscoveryPictureAdapter extends BaseAdapter {
 
     private Context mContext;
     private ArrayList<String> list;
-    private final int TYP1 = 0, TYP2 = 1, TYP3 = 2;
+    private static final int TYPE_COLUMN_ONE = 0;
+    private static final int TYPE_COLUMN_TWO = 1;
+    private static final int TYPE_COLUMN_THREE = 2;
 
     public DiscoveryPictureAdapter(Context context, ArrayList<String> list) {
         this.mContext = context;
@@ -47,11 +46,11 @@ public class DiscoveryPictureAdapter extends BaseAdapter {
     public int getItemViewType(int position) {
         int size = list.size();
         if (size == 1) {
-            return TYP1;
+            return TYPE_COLUMN_ONE;
         } else if (size == 2 || size == 4) {
-            return TYP2;
+            return TYPE_COLUMN_TWO;
         } else {
-            return TYP3;
+            return TYPE_COLUMN_THREE;
         }
     }
 
@@ -72,59 +71,24 @@ public class DiscoveryPictureAdapter extends BaseAdapter {
         String tempUrl = list.get(position);
 
         if (convertView == null) {
-            switch (type) {
-                case TYP1:
-                    convertView = LayoutInflater.from(mContext).inflate(R.layout.discover_pic_item, parent, false);
-                    viewHolder = new ViewHolder();
-                    viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
-                    LayoutParams params = (LayoutParams) viewHolder.imageView.getLayoutParams();
-                    params.height = DisplayUtil.dip2px(150);
-                    params.width = DisplayUtil.dip2px(150);
-                    viewHolder.imageView.setLayoutParams(params);
-                    convertView.setTag(viewHolder);
-                    break;
-                case TYP2:
-                    convertView = LayoutInflater.from(mContext).inflate(R.layout.discover_pic_item, parent, false);
-                    viewHolder = new ViewHolder();
-                    viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
-                    convertView.setTag(viewHolder);
-                    break;
-                case TYP3:
-                    convertView = LayoutInflater.from(mContext).inflate(R.layout.discover_pic_item, parent, false);
-                    viewHolder = new ViewHolder();
-                    viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
-                    convertView.setTag(viewHolder);
-                    break;
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.discover_pic_item, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
+            LayoutParams params = (LayoutParams) viewHolder.imageView.getLayoutParams();
+            if (type == TYPE_COLUMN_ONE) {
+                params.width = (Utils.mScreenWidth - Utils.dip2px(40)) / 3 * 2;
+                params.height = params.width;
+            } else {
+                params.width = (Utils.mScreenWidth - Utils.dip2px(40)) / 3;
+                params.height = params.width;
             }
+            viewHolder.imageView.setLayoutParams(params);
+            convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        setImgView(viewHolder.imageView, tempUrl);
-
+        Glide.with(mContext).load(tempUrl).into(viewHolder.imageView);
         return convertView;
-    }
-
-    /**
-     * 设置图片
-     *
-     * @param view
-     * @param url
-     */
-    private void setImgView(final ImageView view, String url) {
-        if (StringUtil.isEmpty(url)) {
-            return;
-        }
-        view.setImageResource(R.drawable.ic_logo_placeholder);
-        ImageLoader.getInstance().loadBitmap(new ImageCallback() {
-            @Override
-            public void imageCallback(Bitmap bm, String url, String imageTag) {
-                if (bm != null) {
-                    view.setImageBitmap(bm);
-                    notifyDataSetChanged();
-                }
-            }
-
-        }, url, url, 480, 800, 0);
     }
 }

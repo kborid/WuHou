@@ -105,7 +105,7 @@
             android:screenOrientation="portrait" />
         <!-- 发现 -->
         <activity
-            android:name=".ui.activity.DiscoveryActivity"
+            android:name=".circle.DiscoveryActivity"
             android:screenOrientation="portrait" />
 
         <!--地圖-->

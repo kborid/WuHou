@@ -2,16 +2,15 @@ package com.yunfei.wh.ui.JSBridge.functions;
 
 import com.alibaba.fastjson.JSON;
 import com.yunfei.wh.common.SessionContext;
-import com.yunfei.wh.ui.JSBridge.WVJBWebViewClient;
+import com.thunisoft.jsbridge.wvjb.WVJBResponseCallback;
+import com.thunisoft.jsbridge.wvjb.handler.WVJBHandler;
 
 /**
  * 2.7.	获取USER数据
- * 
- * @author LiaoBo
  */
-public class getUser implements WVJBWebViewClient.WVJBHandler {
+public class getUser implements WVJBHandler {
 	@Override
-	public void request(Object data, WVJBWebViewClient.WVJBResponseCallback callback) {
+	public void request(Object data, WVJBResponseCallback callback) {
 		try {
 
 			if (callback != null)
@@ -20,5 +19,4 @@ public class getUser implements WVJBWebViewClient.WVJBHandler {
 			e.printStackTrace();
 		}
 	}
-
 }

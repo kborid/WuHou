@@ -5,37 +5,20 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 18
         targetSdkVersion 27
         versionCode 1
         versionName "1.0.0"
     }
 
-    sourceSets {
-        main {
-            manifest.srcFile 'src/main/AndroidManifest.xml'
-            java.srcDirs = ['src/main/java']
-            res.srcDirs = ['src/main/res']
-            jniLibs.srcDirs = ['libs']
-        }
-    }
-
     lintOptions {
         abortOnError false
     }
-
-    publishNonDefault true
-}
-
-configurations {
-    debug
-    release
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     implementation 'com.squareup.okio:okio:2.1.0'
-    implementation 'com.alibaba:fastjson:1.2.10'
+    implementation 'com.alibaba:fastjson:1.2.56'
 }

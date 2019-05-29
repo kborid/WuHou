@@ -2,15 +2,15 @@ package com.yunfei.wh.net;
 
 import android.content.Intent;
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson.JSON;
 import com.prj.sdk.algo.MD5Tool;
 import com.prj.sdk.app.AppContext;
 import com.prj.sdk.constants.InfoType;
 import com.prj.sdk.net.bean.ResponseData;
 import com.prj.sdk.util.StringUtil;
-import com.yunfei.wh.common.SessionContext;
 import com.yunfei.wh.broatcast.UnLoginBroadcastReceiver;
 import com.yunfei.wh.common.AppConst;
+import com.yunfei.wh.common.SessionContext;
 import com.yunfei.wh.control.UpdateControl;
 import com.yunfei.wh.tools.Algorithm3DES;
 import com.yunfei.wh.tools.AlgorithmData;
@@ -69,7 +69,7 @@ public class RequestBeanBuilder {
 		AlgorithmData data = new AlgorithmData();
 		try {
 			// 先对body进行base64
-			String bodyText = new Gson().toJson(body);
+			String bodyText = JSON.toJSONString(body);
 			// 对报文进行BASE64编码，避免中文处理问题
 			String base64Text = new String(Base64.encodeBase64((AppConst.APPID + bodyText).getBytes("utf-8"), false));
 			// MD5摘要，生成固定长度字符串用于加密
@@ -87,13 +87,12 @@ public class RequestBeanBuilder {
 	 * 获取访问mgr的签名
 	 * 
 	 * @return
-	 * @throws Exception
 	 */
 	private String signRequestForMgr() {
 		String destText = "";
 		try {
 
-			String srcText = new Gson().toJson(body);
+			String srcText = JSON.toJSONString(body);
 
 			String base64Text = new String(Base64.encodeBase64((AppConst.APPID + srcText + AppConst.APPKEY).getBytes("utf-8"), false));
 
@@ -123,7 +122,7 @@ public class RequestBeanBuilder {
 		head.put("version", AppConst.VERSION);
 		head.put("siteid", SessionContext.getAreaInfo(1));
 		head.put("appversion", UpdateControl.getInstance().getCurVersionName());
-		return new Gson().toJson(json);
+		return JSON.toJSONString(json);
 	}
 
 	/**

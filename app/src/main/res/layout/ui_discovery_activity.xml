@@ -1,60 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/viewPager"
-    android:baselineAligned="false">
+    style="@style/viewPager">
 
-    <RelativeLayout
-        android:id="@+id/title_lay"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/main_color_wh">
+    <include layout="@layout/comm_title" />
 
-        <TextView
-            android:id="@+id/tv_left_title"
-            android:layout_width="60dp"
-            android:layout_height="fill_parent"
-            android:drawableLeft="@drawable/m_back"
-            android:gravity="center_vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="5dp"
-            android:textColor="@color/title_text_color"
-            android:textSize="@dimen/title_left_reight_text_size" />
-
-        <RelativeLayout
-            android:id="@+id/center_title_lay"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/tv_center_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="测试标题"
-                android:textColor="@color/white"
-                android:textSize="@dimen/title_center_text_size" />
-
-            <ImageView
-                android:id="@+id/iv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/tv_center_title"
-                android:src="@drawable/common_downpull_selector" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/swipe_refresh_lay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <ListView
             android:id="@+id/listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

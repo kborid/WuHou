@@ -6,7 +6,8 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 18
+        targetSdkVersion 27
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -23,10 +24,6 @@ android {
     }
 
     buildTypes {
-        debug {
-
-        }
-
         release {
             minifyEnabled true
             zipAlignEnabled true
@@ -103,9 +100,19 @@ dependencies {
     implementation 'com.commit451:PhotoView:1.2.4'
     // 美洽图片加载库
     implementation 'com.meiqia:uilimageloader:1.0.0@aar'
+    // universal image loader
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    // zxing
     implementation 'com.google.zxing:zxing-parent:3.3.3'
-    implementation 'com.alibaba:fastjson:1.2.51'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    // fastjson
+    implementation 'com.alibaba:fastjson:1.2.56'
+    //jsbridge
+    implementation 'com.kborid.smart:jsbridge:1.0.3'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    //SmartRefreshLayout
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
     implementation project(path: ':SmartCitySDK')
 }

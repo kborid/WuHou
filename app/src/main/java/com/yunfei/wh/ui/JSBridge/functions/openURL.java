@@ -5,15 +5,15 @@ import android.content.Context;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.prj.sdk.util.Utils;
-import com.yunfei.wh.ui.JSBridge.WVJBWebViewClient;
-import com.yunfei.wh.ui.JSBridge.WVJBWebViewClient.WVJBResponseCallback;
+import com.thunisoft.jsbridge.wvjb.WVJBResponseCallback;
+import com.thunisoft.jsbridge.wvjb.handler.WVJBHandler;
 
 /**
  * 2.6. 使用外部浏览器打开一个URL {‘url’:'http://www.baidu.com’}
  * 
  * @author LiaoBo
  */
-public class openURL implements WVJBWebViewClient.WVJBHandler {
+public class openURL implements WVJBHandler {
 	private Context	mContext;
 
 	/**

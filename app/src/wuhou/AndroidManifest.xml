@@ -4,10 +4,6 @@
     package="com.yunfei.wh"
     tools:ignore="GradleOverrides">
 
-    <uses-sdk
-        android:minSdkVersion="10"
-        android:targetSdkVersion="21" />
-
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -85,7 +81,7 @@
             android:screenOrientation="portrait" />
         <!-- 发现 -->
         <activity
-            android:name=".ui.activity.DiscoveryActivity"
+            android:name=".circle.DiscoveryActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ChannelNewsDetailsActivity"

@@ -11,7 +11,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.yunfei.wh.R;
 import com.yunfei.wh.net.bean.AppListBean;
 import com.yunfei.wh.ui.activity.CustomerServiceActivity;
-import com.yunfei.wh.ui.activity.DiscoveryActivity;
+import com.yunfei.wh.circle.DiscoveryActivity;
 import com.yunfei.wh.ui.activity.HtmlActivity;
 import com.yunfei.wh.ui.activity.MapActivity;
 import com.yunfei.wh.ui.activity.OrderScreensActivity;

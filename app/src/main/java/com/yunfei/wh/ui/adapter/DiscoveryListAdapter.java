@@ -2,7 +2,6 @@ package com.yunfei.wh.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +12,15 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.prj.sdk.net.image.ImageLoader;
-import com.prj.sdk.util.DisplayUtil;
-import com.prj.sdk.util.StringUtil;
+import com.bumptech.glide.Glide;
+import com.prj.sdk.util.Utils;
 import com.yunfei.wh.R;
-import com.yunfei.wh.ui.custom.CircleImageView;
 import com.yunfei.wh.common.NetURL;
+import com.yunfei.wh.control.UnescapeControl;
 import com.yunfei.wh.net.bean.ContentListBean;
 import com.yunfei.wh.tools.HtmlParse;
-import com.yunfei.wh.control.UnescapeControl;
 import com.yunfei.wh.ui.activity.ImageScaleActivity;
+import com.yunfei.wh.ui.custom.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,19 +74,8 @@ public class DiscoveryListAdapter extends BaseAdapter {
 
         final ContentListBean bean = list.get(position);
         // 获取频道头像
-        if (!StringUtil.isEmpty(bean.imgPath)) {
-            String url = NetURL.getApi() + bean.imgPath;
-            if (url != null && url.length() > 0) {
-                ImageLoader.getInstance().loadBitmap(new ImageLoader.ImageCallback() {
-                    @Override
-                    public void imageCallback(Bitmap bm, String url, String imageTag) {
-                        if (bm != null) {
-                            viewHolder.iv_photo.setImageBitmap(bm);
-                        }
-                    }
-                }, url);
-            }
-        }
+        String url = NetURL.getApi() + bean.imgPath;
+        Glide.with(context).load(url).into(viewHolder.iv_photo);
         viewHolder.tv_title.setText(bean.title);
         viewHolder.tv_time.setText(bean.createDateApp);
 
@@ -99,23 +86,26 @@ public class DiscoveryListAdapter extends BaseAdapter {
         String tvString = HtmlParse.trimHtml2Txt(contentStr);
         viewHolder.tv_content.setText(tvString);
         ArrayList<String> imgList = HtmlParse.getImgList(contentStr);
-        for (int i = 9; i < imgList.size(); i++) {
-            imgList.remove(i);
+        if (imgList.size() > 9) {
+            imgList = new ArrayList<>(imgList.subList(0, 9));
+        }
+        if (imgList.size() == 1 || imgList.size() == 3) {
+            imgList.add(imgList.get(0));
         }
 
         imageMap.put(String.valueOf(position), imgList);
-        if (imgList != null && imgList.size() != 0) {
+        if (imgList.size() != 0) {
             int size = imgList.size();
             viewHolder.gridview.setVisibility(View.VISIBLE);
             if (size == 2 || size == 4) {
+                viewHolder.gridview.setLayoutParams(new LinearLayout.LayoutParams((Utils.mScreenWidth - Utils.dip2px(40)) / 3 * 2, ViewGroup.LayoutParams.WRAP_CONTENT));
                 viewHolder.gridview.setNumColumns(2);
-                viewHolder.gridview.setLayoutParams(new LinearLayout.LayoutParams(DisplayUtil.dip2px(150), LinearLayout.LayoutParams.WRAP_CONTENT));
             } else if (size == 1) {
+                viewHolder.gridview.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 viewHolder.gridview.setNumColumns(1);
-                viewHolder.gridview.setLayoutParams(new LinearLayout.LayoutParams(DisplayUtil.dip2px(150), LinearLayout.LayoutParams.WRAP_CONTENT));
             } else {
+                viewHolder.gridview.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 viewHolder.gridview.setNumColumns(3);
-                viewHolder.gridview.setLayoutParams(new LinearLayout.LayoutParams(DisplayUtil.dip2px(230), LinearLayout.LayoutParams.WRAP_CONTENT));
             }
 
             picAdapter = new DiscoveryPictureAdapter(context, imgList);

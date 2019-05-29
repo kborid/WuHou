@@ -1,28 +1,19 @@
 package com.yunfei.wh.ui.JSBridge.functions;
 
-import android.content.Context;
-
 import com.alibaba.fastjson.JSONObject;
 import com.prj.sdk.util.LogUtil;
 import com.yunfei.wh.camera.CameraDataController;
 import com.yunfei.wh.camera.ICustomCameraResultListener;
 import com.yunfei.wh.common.pay.alipay.Base64;
-import com.yunfei.wh.ui.JSBridge.WVJBWebViewClient;
-import com.yunfei.wh.ui.JSBridge.WVJBWebViewClient.WVJBResponseCallback;
+import com.thunisoft.jsbridge.wvjb.WVJBResponseCallback;
+import com.thunisoft.jsbridge.wvjb.handler.WVJBHandler;
 
 import java.util.Arrays;
 
 /**
  * 获取用户ID,用户未登录时调用此接口框架会要求用户去登录
- *
- * @author LiaoBo
  */
-public class getIDCardPic implements WVJBWebViewClient.WVJBHandler {
-    private Context mContext;
-
-    public getIDCardPic(Context context) {
-        mContext = context;
-    }
+public class getIDCardPic implements WVJBHandler {
 
     @Override
     public void request(Object data, final WVJBResponseCallback callback) {

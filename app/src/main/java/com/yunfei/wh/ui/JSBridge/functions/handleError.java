@@ -8,14 +8,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.prj.sdk.app.AppContext;
 import com.prj.sdk.util.StringUtil;
 import com.yunfei.wh.broatcast.UnLoginBroadcastReceiver;
-import com.yunfei.wh.ui.JSBridge.WVJBWebViewClient;
+import com.thunisoft.jsbridge.wvjb.WVJBResponseCallback;
+import com.thunisoft.jsbridge.wvjb.handler.WVJBHandler;
 
 /**
  * 8. Private_处理错误信息
- * 
- * @author LiaoBo
  */
-public class handleError implements WVJBWebViewClient.WVJBHandler {
+public class handleError implements WVJBHandler {
 	private Context	mContext;
 
 	public handleError(Context context) {
@@ -23,7 +22,7 @@ public class handleError implements WVJBWebViewClient.WVJBHandler {
 	}
 
 	@Override
-	public void request(Object data, WVJBWebViewClient.WVJBResponseCallback callback) {
+	public void request(Object data, WVJBResponseCallback callback) {
 		try {
 
 //			if (callback == null) {

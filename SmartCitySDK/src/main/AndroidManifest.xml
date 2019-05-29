@@ -1,7 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.prj.sdk"
-    android:versionCode="1"
-    android:versionName="1.0">
-
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-</manifest>
+<manifest package="com.prj.sdk" />

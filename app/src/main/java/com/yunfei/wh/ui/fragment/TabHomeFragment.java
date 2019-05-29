@@ -44,6 +44,7 @@ import com.yunfei.wh.net.bean.AppListBean;
 import com.yunfei.wh.net.bean.DiscoveryChannelBean;
 import com.yunfei.wh.net.bean.MainBannerBean;
 import com.yunfei.wh.net.bean.WeatherForHomeBean;
+import com.yunfei.wh.circle.DiscoveryActivity;
 import com.yunfei.wh.ui.activity.HtmlActivity;
 import com.yunfei.wh.ui.activity.MainFragmentActivity;
 import com.yunfei.wh.ui.adapter.HomeImageAdapter;
@@ -233,6 +234,13 @@ public class TabHomeFragment extends BaseFragment implements DataCallback, Swipe
     @Override
     public void initListeners() {
         super.initListeners();
+        weather_lay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), DiscoveryActivity.class));
+            }
+        });
+
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
