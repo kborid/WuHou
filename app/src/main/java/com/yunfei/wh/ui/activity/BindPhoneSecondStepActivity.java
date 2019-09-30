@@ -30,7 +30,7 @@ import com.yunfei.wh.common.SessionContext;
 import com.yunfei.wh.common.AppConst;
 import com.yunfei.wh.common.NetURL;
 import com.yunfei.wh.net.bean.UserInfo;
-import com.yunfei.wh.tools.SHA1;
+import com.prj.sdk.algo.SHA1;
 import com.yunfei.wh.ui.base.BaseActivity;
 
 import java.net.ConnectException;

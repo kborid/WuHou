@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 public class CustomViewPager extends ViewPager {
 
 
-    private boolean isPagingEnabled = true;
+    private boolean isSlidingEnabled = true;
 
     public CustomViewPager(Context context) {
         super(context);
@@ -24,15 +24,15 @@ public class CustomViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return this.isPagingEnabled && super.onTouchEvent(event);
+        return this.isSlidingEnabled && super.onTouchEvent(event);
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        return this.isPagingEnabled && super.onInterceptTouchEvent(event);
+        return this.isSlidingEnabled && super.onInterceptTouchEvent(event);
     }
 
-    public void setPagingEnabled(boolean b) {
-        this.isPagingEnabled = b;
+    public void setSlidingEnabled(boolean enable) {
+        this.isSlidingEnabled = enable;
     }
 }

@@ -10,7 +10,6 @@ android {
         targetSdkVersion 27
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     sourceSets {
@@ -34,14 +33,14 @@ android {
 
     signingConfigs {
         wh {
-            storeFile file("./src/wuhou/a7dfc32cdf8f679ead9db3f1042762.keystore")
+            storeFile file("../sign/a7dfc32cdf8f679ead9db3f1042762.keystore")
             storePassword "wh0102"
             keyAlias "wh0102"
             keyPassword "wh0102"
         }
 
         lj {
-            storeFile file("./src/liangjiang/z012v4_single.keystore")
+            storeFile file("../sign/z012v4_single.keystore")
             storePassword "z012v4single"
             keyAlias "z012v4"
             keyPassword "z012v4single"
@@ -88,7 +87,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
     //android support library
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'

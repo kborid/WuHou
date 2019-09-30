@@ -9,6 +9,8 @@ import android.webkit.WebView;
 import com.meiqia.core.callback.OnInitCallback;
 import com.meiqia.meiqiasdk.uilimageloader.UILImageLoader;
 import com.meiqia.meiqiasdk.util.MQConfig;
+import com.prj.sdk.algo.Algorithm3DES;
+import com.prj.sdk.algo.AlgorithmData;
 import com.prj.sdk.app.AppContext;
 import com.prj.sdk.net.data.DataLoader;
 import com.prj.sdk.util.ActivityTack;
@@ -68,6 +70,18 @@ public class PRJApplication extends Application {
         }
 
         mPermissionsChecker = new PermissionsChecker(this);
+
+        AlgorithmData data = new AlgorithmData();
+        String sourceStr = "I am your father yyyyyyyyyyyy!";
+        data.setDataMing(sourceStr);
+        Algorithm3DES.encryptMode(data);
+        System.out.println(data.toString());
+        String encodedStr = data.getDataMi();
+        AlgorithmData data2 = new AlgorithmData();
+        data2.setDataMi(encodedStr);
+        data2.setKey(data.getKey());
+        Algorithm3DES.decryptMode(data2);
+        System.out.println(data2.toString());
     }
 
     @Override

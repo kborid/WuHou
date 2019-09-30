@@ -17,7 +17,7 @@ import com.prj.sdk.widget.CustomToast;
 import com.yunfei.wh.R;
 import com.yunfei.wh.net.RequestBeanBuilder;
 import com.yunfei.wh.common.NetURL;
-import com.yunfei.wh.tools.SHA1;
+import com.prj.sdk.algo.SHA1;
 import com.yunfei.wh.ui.base.BaseActivity;
 
 /**

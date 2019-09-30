@@ -81,7 +81,7 @@ public class MainFragmentActivity extends BaseFragmentActivity implements OnPage
         }
         viewPager = (CustomViewPager) findViewById(R.id.viewPager);
         if (viewPager != null) {
-            viewPager.setPagingEnabled(false);
+            viewPager.setSlidingEnabled(false);
             viewPager.addOnPageChangeListener(this);
         }
     }

@@ -3,7 +3,7 @@ package com.prj.sdk.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.prj.sdk.algo.Aes;
+import com.prj.sdk.algo.AES;
 import com.prj.sdk.app.AppContext;
 
 /**
@@ -64,7 +64,7 @@ public class SharedPreferenceUtil {
 		try {
 			if (encrypt) {
 				if (!value.equals(def))
-					value = Aes.DecryptToString(Conversion.hexStringToBytes(value), Aes.AES_KEY);
+					value = AES.DecryptToString(Conversion.hexStringToBytes(value), AES.AES_KEY);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class SharedPreferenceUtil {
 		try {
 			if (value != null) {
 				if (encrypt) {
-					value = Conversion.bytesToHexString(Aes.Encrypt(value, Aes.AES_KEY));
+					value = Conversion.bytesToHexString(AES.Encrypt(value, AES.AES_KEY));
 				}
 			} else {
 				value = "";

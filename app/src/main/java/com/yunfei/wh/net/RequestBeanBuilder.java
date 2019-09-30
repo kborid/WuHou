@@ -3,7 +3,7 @@ package com.yunfei.wh.net;
 import android.content.Intent;
 
 import com.alibaba.fastjson.JSON;
-import com.prj.sdk.algo.MD5Tool;
+import com.prj.sdk.algo.MD5;
 import com.prj.sdk.app.AppContext;
 import com.prj.sdk.constants.InfoType;
 import com.prj.sdk.net.bean.ResponseData;
@@ -12,8 +12,8 @@ import com.yunfei.wh.broatcast.UnLoginBroadcastReceiver;
 import com.yunfei.wh.common.AppConst;
 import com.yunfei.wh.common.SessionContext;
 import com.yunfei.wh.control.UpdateControl;
-import com.yunfei.wh.tools.Algorithm3DES;
-import com.yunfei.wh.tools.AlgorithmData;
+import com.prj.sdk.algo.Algorithm3DES;
+import com.prj.sdk.algo.AlgorithmData;
 import com.yunfei.wh.tools.Base64;
 
 import java.util.HashMap;
@@ -73,12 +73,13 @@ public class RequestBeanBuilder {
 			// 对报文进行BASE64编码，避免中文处理问题
 			String base64Text = new String(Base64.encodeBase64((AppConst.APPID + bodyText).getBytes("utf-8"), false));
 			// MD5摘要，生成固定长度字符串用于加密
-			String destText = MD5Tool.getMD5(base64Text);
+			String destText = MD5.getMD5(base64Text);
 			data.setDataMing(destText);
 			data.setKey(AppConst.APPKEY);
 			// 3DES加密
 			Algorithm3DES.encryptMode(data);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return data.getDataMi();
 	}
@@ -96,7 +97,7 @@ public class RequestBeanBuilder {
 
 			String base64Text = new String(Base64.encodeBase64((AppConst.APPID + srcText + AppConst.APPKEY).getBytes("utf-8"), false));
 
-			destText = MD5Tool.getMD5(base64Text);
+			destText = MD5.getMD5(base64Text);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

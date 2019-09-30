@@ -18,7 +18,7 @@ public final class NetURL {
 
 		if (AppConst.ISDEVELOP) {
             int status = SharedPreferenceUtil.getInstance().getInt(AppConst.APPTYPE, 1);
-            return SERVER_USRS[status];
+            return SERVER_USRS[1];
         } else {
             return SERVER_USRS[1];
         }

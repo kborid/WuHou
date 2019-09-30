@@ -16,7 +16,8 @@ public class LogUtil {
     private static long startTime = 0;
 
     public static boolean isDebug() {
-        return BuildConfig.DEBUG;
+//        return BuildConfig.DEBUG;
+        return true;
     }
 
     // 冗余信息输出

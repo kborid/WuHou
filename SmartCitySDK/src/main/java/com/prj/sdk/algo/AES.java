@@ -17,9 +17,9 @@ import com.prj.sdk.util.LogUtil;
  * @author Liao
  * 
  */
-public class Aes {
+public class AES {
 
-	private static final String	TAG		= Aes.class.getName();
+	private static final String	TAG		= AES.class.getName();
 
 	// 明文 !@#123&*(789
 	public static final String	AES_KEY	= "tEZy+5kxPwR2dVEGy+64PQ==";
